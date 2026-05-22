@@ -1,0 +1,20 @@
+{
+    "server": {
+        "host": "0.0.0.0",
+        "port": 8080,
+        "debug": false
+    },
+    "admin": {
+        "password": "admin"
+    },
+    "simulation": {
+        "partial_mode": true,
+        "max_students": 30,
+        "ping_packet_count": 4,
+        "base_latency_ms": 540,
+        "jitter_ms": 5
+    },
+    "database": {
+        "path": "data/vsat.db"
+    }
+}

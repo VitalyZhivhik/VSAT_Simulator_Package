@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VSAT Terminal — Вход</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📡</text></svg>">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #0a0e17;
+        }
+        .login-container {
+            background: #141a2a;
+            border: 1px solid #2a3a5c;
+            border-radius: 8px;
+            padding: 40px;
+            width: 400px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+        .login-logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .login-logo h1 {
+            color: #e0e6f0;
+            font-size: 22px;
+            font-weight: 600;
+            margin: 0 0 6px 0;
+        }
+        .login-logo .subtitle {
+            color: #6b7a99;
+            font-size: 13px;
+        }
+        .login-logo .icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+            display: block;
+            color: #3b82f6;
+        }
+        .form-group {
+            margin-bottom: 18px;
+        }
+        .form-group label {
+            display: block;
+            color: #8b9cc0;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px 14px;
+            background: #0d1220;
+            border: 1px solid #2a3a5c;
+            border-radius: 4px;
+            color: #e0e6f0;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+            box-sizing: border-box;
+        }
+        .form-group input:focus {
+            border-color: #3b82f6;
+        }
+        .form-group input::placeholder {
+            color: #4a5a7a;
+        }
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: #3b82f6;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background 0.2s;
+            margin-top: 8px;
+        }
+        .login-btn:hover {
+            background: #2563eb;
+        }
+        .login-btn:disabled {
+            background: #1e3a5f;
+            cursor: not-allowed;
+        }
+        .login-error {
+            color: #ef4444;
+            font-size: 13px;
+            margin-top: 12px;
+            text-align: center;
+            display: none;
+        }
+        .login-footer {
+            text-align: center;
+            margin-top: 24px;
+            color: #4a5a7a;
+            font-size: 11px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-logo">
+            <span class="icon">&#9783;</span>
+            <h1>VSAT Terminal Simulator</h1>
+            <div class="subtitle">Учебная система спутниковой связи</div>
+        </div>
+
+        <form id="loginForm" onsubmit="return handleLogin(event)">
+            <div class="form-group">
+                <label for="studentName">ФИО студента</label>
+                <input type="text" id="studentName" placeholder="Введите ваше имя" required maxlength="100" autofocus>
+            </div>
+            <div class="form-group">
+                <label for="studentGroup">Группа</label>
+                <input type="text" id="studentGroup" placeholder="Введите номер группы" required maxlength="50">
+            </div>
+            <button type="submit" class="login-btn" id="loginBtn">Подключиться</button>
+            <div class="login-error" id="loginError"></div>
+        </form>
+
+        <div class="login-footer">
+            VSAT Simulator v1.0 &mdash; Лабораторная работа
+        </div>
+    </div>
+
+    <script>
+        async function handleLogin(e) {
+            e.preventDefault();
+            const btn = document.getElementById('loginBtn');
+            const errEl = document.getElementById('loginError');
+            errEl.style.display = 'none';
+            btn.disabled = true;
+            btn.textContent = 'Подключение...';
+
+            const name = document.getElementById('studentName').value.trim();
+            const group = document.getElementById('studentGroup').value.trim();
+
+            try {
+                const resp = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ student_name: name, student_group: group }),
+                });
+
+                if (!resp.ok) {
+                    const data = await resp.json();
+                    throw new Error(data.detail || 'Ошибка входа');
+                }
+
+                const data = await resp.json();
+                sessionStorage.setItem('session_id', data.session_id);
+                sessionStorage.setItem('student_name', data.student_name);
+                sessionStorage.setItem('student_group', data.student_group);
+
+                window.location.href = '/terminal';
+            } catch (err) {
+                errEl.textContent = err.message;
+                errEl.style.display = 'block';
+                btn.disabled = false;
+                btn.textContent = 'Подключиться';
+            }
+        }
+    </script>
+</body>
+</html>

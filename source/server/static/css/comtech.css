@@ -1,0 +1,944 @@
+/* ==========================================================================
+   Comtech CEL-AC 3 Satellite Switch Simulator — Unified Stylesheet
+   ==========================================================================
+   Ported from lm.css (layout/navigation) and ls.css (content pages).
+   Includes console terminal styles inline.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Global Reset & Base Styles
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    min-width: 1100px;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    padding: 0;
+    margin: 0;
+    overflow: auto;
+    color: #333;
+    background: #fff;
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+a {
+    text-decoration: underline;
+    color: #555;
+}
+
+a:hover,
+.button:hover,
+.btn_link:hover,
+.btn_link_yellow:hover,
+.tv a:hover {
+    color: #a3d3f9;
+}
+
+b {
+    font-weight: 600;
+    color: #333;
+}
+
+/* --------------------------------------------------------------------------
+   2. Layout — Flex-based shell
+   -------------------------------------------------------------------------- */
+#wrap {
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+#header {
+    padding: 0;
+    height: 70px;
+    background: #369;
+    min-width: 1100px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    flex-shrink: 0;
+}
+
+#content {
+    width: auto;
+    height: calc(100vh - 80px);
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    flex: 1;
+}
+
+#tree {
+    width: 230px;
+    min-width: 230px;
+    background: #369;
+    overflow-y: auto;
+    flex-shrink: 0;
+}
+
+#main {
+    flex: 1;
+    width: calc(100vw - 230px);
+    overflow: auto;
+    padding: 10px 20px;
+}
+
+iframe {
+    width: 920px;
+    height: calc(100vh - 100px);
+    margin: 0;
+    border: none;
+}
+
+/* --------------------------------------------------------------------------
+   3. Header Elements
+   -------------------------------------------------------------------------- */
+
+/* — Logo — */
+.logo {
+    width: 230px;
+    min-width: 230px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.logo-text {
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+/* — Status area — */
+.status {
+    height: 70px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex: 1;
+    gap: 8px;
+    padding: 0 10px;
+}
+
+/* — Header block (generic flex child) — */
+.hdr-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #fff;
+    font-size: 14px;
+    padding: 0 8px;
+}
+
+.hdr-led {
+    padding: 0 6px;
+}
+
+.hdr-info {
+    min-width: 120px;
+    max-width: 200px;
+}
+
+.hdr-row {
+    display: flex;
+    align-items: baseline;
+    line-height: 22px;
+    white-space: nowrap;
+}
+
+.hdr-label {
+    color: #aac;
+    font-size: 13px;
+    margin-right: 4px;
+    flex-shrink: 0;
+}
+
+.hdr-value {
+    color: #fff;
+    font-weight: 400;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* — Status buttons (4 columns x 2 rows) — */
+.hdr-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2px;
+    margin-left: auto;
+}
+
+.btn-col {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.sbtn {
+    display: block;
+    width: 60px;
+    text-align: center;
+    line-height: 26px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+    color: #000;
+}
+
+.sbtn:hover {
+    opacity: 0.85;
+}
+
+/* — Toolbar icons — */
+.hdr-tools {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2px;
+    padding: 0 4px;
+    margin-left: 8px;
+}
+
+.tool-icon {
+    cursor: pointer;
+    font-size: 22px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    color: #ccc;
+}
+
+.tool-icon:hover {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+}
+
+/* — Status button color classes — */
+.cg {
+    background: #7dd228;
+}
+
+.cy {
+    background: #fcb940;
+}
+
+.cr {
+    background: #fe5e37;
+}
+
+.cw {
+    background: #f0f0f0;
+}
+
+.cwd {
+    background: #f0f0f0;
+}
+
+.cwd {
+    background: #ddd;
+    color: #999;
+}
+
+/* — Alert highlight classes — */
+.err {
+    background-color: #fe5e37;
+}
+
+.warn {
+    background-color: #fcb940;
+}
+
+/* — SysLed indicator — */
+#SysLed {
+    cursor: pointer;
+    margin-top: 27px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+/* — Fault / filter badges — */
+.flt {
+    vertical-align: middle;
+    float: left;
+    width: 58px;
+    line-height: 29px;
+    text-align: center;
+    margin: 3px;
+    font-size: 17px;
+    border-radius: 5px;
+    background: #369;
+}
+
+.flt a {
+    color: #000;
+    text-decoration: none;
+}
+
+/* — Action icons (save, clear, console, logout) — */
+span {
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+span.saveconf,
+span.saveconf_active,
+span.clearfaults,
+span.clearfaults_active,
+span.telnet,
+span.logout {
+    cursor: pointer;
+    display: inline-block;
+    height: 40px;
+    width: 50px;
+    font-size: 100%;
+}
+
+span.saveconf {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAAxElEQVRIieWUOw7CMBBEx4hr5D45ABLXoQFRc8TkBpCO4lFgicSys+sQKGAay5/Z8X6lnwHQAj1OeO2GkUAnqXETQwj2q6kHVT/zYrO2QbdAZU4OplIaIqDzJtwlkhFw5QTYAff4/Ly6gFvEEsjFJOHvc+fjPkB61XdpPyEnvZByJGlr+l8w5sX3+iBEWATgBAzA8S3lUhUBt3h19XCWhOgiaYjrctT0wRzn40meK9NeUlPrReTZ4DlNawdeB7SVH/p3PACNGZot1fslVQAAAABJRU5ErkJggg==');
+}
+
+span.saveconf_active {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAABEUlEQVRIie2UMU7DQBBF34S1hMQVyF2WBucANFyALrRBogg0iJaU5ACAxAHYVMtZcgW6tTQ0cWTQWp4lCITEr9aev3/27/cY/jqkXaQXPxFhCRxaNro6yjALRttOwr1VvASusx6D/WRWjIYpu8H1FUoyUbiu6niVq/U6KMlEYJ6CzzbodYAxkyb4E+BBYJ5Wfr86jhfd+s4ZuDo+A6dAI8osrfzth7pVqAleM+LSNmmC3wMeRZkBWxff9hW5Oj5l3xcIfGk+fm4OrCdM4ehG0HNVvasmr5dD/GIHgk6BAxGZWvjFDVR1AbwpLCx8c8gtNtcyeDUtfu9nB6yBcW7ABrDuPvQ6UOXsM9kivtn3DzveAQ1dS1OSVV3dAAAAAElFTkSuQmCC');
+}
+
+span.clearfaults {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAA0ElEQVRIie2STQrCMBCFJ0Kha4/gD3Wn4Cm8l55ED6B30DvoTvAIuhBRPjeJhLbWmYrSRb9NaDIvb14zIk0Cj0XT+VUzrUFr8AcDYAFciIjOYs7A3OQKTLAztiSY+nXpPiAiq5xGZZD59aAIHGqyyqoYYFPjF60tCUbqbqwaIAFuwANIFfUpcPeaJH9elqAvIomIHJ1z108GvubkNT2NQXisfUXXXWAQbYXawkNXGbwmqOTCoYjMou+3k6QyKLlQbVAA2NUY0cDWkqAO32gbyhN47hOd7UZ8ugAAAABJRU5ErkJggg==');
+}
+
+span.clearfaults_active {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAABYUlEQVRIie2UMU4CURCGv3nLGhOChd5AJViSYGVMWBvROxiv4AUs8QCegUuwNtDQaYwddCaWhkpMDOzuWKwg2bcsS6KJJkz3Zub9/z9v/jz4SxH4nga+p6vcMb8lZk2wJvi5kEWFSbt+IyJXQHEJxkjh1m10r3MTjO+8qlEe8+uESKW6cdZ5SuYLac1GqcX00iqcdi6zgAPfawEXRqgBFkHqDhSpAIjqYJlygQGAalRJq6dOIBpVEEGhGfheM4tg+jGJSCrBggk4yAJd5Y61ZL2vueGw9A7qOBtSlJPuRyZwx9sMx4yAyNl5K8rhw2S+bk8wLO0BLvC8DBzgq+cFcHnd2k3WLYJQZ2/ZX6i63djWtrc/l+oDhA7WHiwCMXGTYmYOSgJOZFyORM9ndY2dJClOsgimdjPybdEkoBEtKzJ/jq2K7SRryYFf74EcJfM5o1dodI8zJyBFRe5Qewf/Pz4BSKJ0rp9zSxAAAAAASUVORK5CYII=');
+}
+
+span.telnet {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAA0UlEQVRIie2UsQ3CMBBF7yMalBnCPJkkK6Qk6WAzejbAMyDKRxMkY5zEsZEo4DdWTnf37uscm/21RkADOPJ1BRq/pwLA1czqwjmdpP2UAwByO8fqN7nNUrWdmuRTgO84kKRYfEkx57MOgCoHlAQYm5+BvhTiN325ZkA3ho459UkJayC5/8FuPO8JuW+K3iJvot7MDmY2SBrGWBfmSTol0XyLQAVcwiXHXrhY/SLgCUmabAYwuwNJtzWAmMIdODOrC98i53+EDtowIaN5W1D/i3oA62b3z4ZQfEsAAAAASUVORK5CYII=');
+}
+
+span.logout {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAAuElEQVRIie2TTQ6CMBSE5xmvIOoCz8NJSPS4SuIeDvK58GmgES0tJCY6m4ZmfvraQfpjCoAK6EhHC1R9TwsCWkll5jk7MzuMTQBAqvMr/SrVLBZZAcARKKYIoq8IODn98gj5qJ8YsAHOLrkC+1kDnF/4BPTWgT6sKZJkZi/3Y9HXf0eLbASStpIapzVvLO7IfOTd3C1atqbOH/xoswfE6Bdv0Tr47iSVOVO4xxPhBHVISDCvM/S/iBu4bji1FVoteQAAAABJRU5ErkJggg==');
+}
+
+span.st {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAKElEQVQ4y2NgGAUQ8D/1PwikDj0N//eDICkawGAIaPh/BiY6qmFkAQAhL7xn8BlyzwAAAABJRU5ErkJggg==');
+    font-size: 100%;
+}
+
+span.st:hover {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAf0lEQVRIS2NkoDFgpLH5DKMWEAxhooPo////qUuu/JoFMjFGhy2NkZFxNkHTgQpGLSAYSliDCBje+2E6gWHtCGJTNQ4WX/75H2ZBrC472BGjFqBEFilBBAy6M8D8YQwyABacyIZhjeRRC0ZAEBHM/yQoILo0JcFMFKWjFhAMOQAPvsIZOQkIJwAAAABJRU5ErkJggg==');
+}
+
+span.mi {
+    font-size: 8px;
+}
+
+span.stmi {
+    font-size: 100%;
+}
+
+span.lock {
+    position: absolute;
+    margin-top: 8px;
+    height: 16px;
+    width: 16px;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAA6klEQVQ4jaWSPUpDQRRGz9Vop6S0cAM2/nQuIZDWn1I7G3EJ4RGXIja6AHEJQgzExm1IkkZBj808jeG9zAt+MHDnzne+ucUNaqS2gUNA4Cki3uq8VfCVOvVXU/WyKXyqfqk9dSudIvWOmgQM1ZuK/q06aBLwoZ5V9M/V9/l+a8awChTAGnChdue828C6eg0UEfEJEDMBHeABuM8MeQx0IuLxzwTABkBEnCyiVYHN8r6SMe+re4s8tQEJfAaG6u7SAU3VqnuIiJF6kOqXpQNyYFXABEC9y0HA+OeTskiL1AN2MvAr0C8X6d/6Bt/vjE5d/i/LAAAAAElFTkSuQmCC');
+    font-size: 100%;
+}
+
+/* — Console icon (alias for telnet) — */
+.console-icon {
+    cursor: pointer;
+    display: inline-block;
+    height: 40px;
+    width: 50px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAA0UlEQVRIie2UsQ3CMBBF7yMalBnCPJkkK6Qk6WAzejbAMyDKRxMkY5zEsZEo4DdWTnf37uscm/21RkADOPJ1BRq/pwLA1czqwjmdpP2UAwByO8fqN7nNUrWdmuRTgO84kKRYfEkx57MOgCoHlAQYm5+BvhTiN325ZkA3ho459UkJayC5/8FuPO8JuW+K3iJvot7MDmY2SBrGWBfmSTol0XyLQAVcwiXHXrhY/SLgCUmabAYwuwNJtzWAmMIdODOrC98i53+EDtowIaN5W1D/i3oA62b3z4ZQfEsAAAAASUVORK5CYII=');
+}
+
+/* — Tooltip — */
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    background: transparent;
+    color: #a3d3f9;
+    text-align: center;
+    border-radius: 3px;
+    padding: 5px;
+    top: 30px;
+    left: 8px;
+    position: absolute;
+    font-size: 12px;
+    z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+/* --------------------------------------------------------------------------
+   4. Navigation Tree
+   -------------------------------------------------------------------------- */
+ul,
+#myUL {
+    list-style-type: none;
+    font-size: 18px;
+    line-height: 22px;
+}
+
+#myUL {
+    margin: 12px;
+    padding: 0;
+}
+
+ul a {
+    text-decoration: none;
+    color: #fff;
+}
+
+ul .btn_link {
+    background: none !important;
+    border: none;
+    padding: 0 !important;
+    text-decoration: none;
+    color: #fff;
+    font-size: inherit;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+ul .btn_link_yellow {
+    background: none !important;
+    border: none;
+    padding: 0 !important;
+    text-decoration: none;
+    color: #fcb940;
+    font-size: inherit;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.caret {
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.caret::before {
+    content: '\25B6';
+    color: #fff;
+    display: inline-block;
+    margin-right: 6px;
+    transition: transform 0.15s ease;
+}
+
+.caret-down::before {
+    -ms-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.nested {
+    display: none;
+    padding-left: 1.8em;
+}
+
+.active {
+    display: block;
+}
+
+/* — Selected item highlight — */
+div.li-selector {
+    margin-left: -12px;
+    margin-right: -12px;
+    padding-left: 12px;
+}
+
+div.li-selector.active {
+    background-color: #2A547E;
+}
+
+/* --------------------------------------------------------------------------
+   5. Content Page Styling — Tables, Forms, Buttons
+   -------------------------------------------------------------------------- */
+
+/* — Tables — */
+table {
+    margin-bottom: 20px;
+    border-collapse: collapse;
+    border: 0;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+table td {
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    color: #555;
+}
+
+table th {
+    border: 1px solid #999;
+    padding: 5px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #777;
+}
+
+table th a {
+    font-weight: bold;
+    color: #fff;
+    background-color: #777;
+}
+
+table.thidden {
+    border: none;
+}
+
+table.thidden tr {
+    border: none;
+}
+
+table.thidden td {
+    border: none;
+}
+
+/* — Pre-formatted text — */
+pre {
+    text-align: left;
+    font-size: 14px;
+}
+
+/* — Forms — */
+input,
+select,
+textarea {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    padding: 4px 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border: 1px solid #ec0b8d;
+    outline: none;
+}
+
+/* — Buttons — */
+a.button {
+    padding: 10px 30px;
+    color: #333;
+    text-decoration: none;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background: #f5f5f5;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.15s ease;
+}
+
+a.button:hover {
+    background: #e0e0e0;
+    color: #333;
+}
+
+.btn-apply, .btn-reset {
+    padding: 8px 30px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.btn-apply {
+    background: #369;
+    color: #fff;
+    border-color: #369;
+}
+
+.btn-apply:hover {
+    background: #2a547e;
+}
+
+.btn-reset {
+    background: #f5f5f5;
+    color: #333;
+}
+
+.btn-reset:hover {
+    background: #e0e0e0;
+}
+
+/* — Nav links — */
+a.nav {
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+a.nav-left {
+    padding-right: 5px;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.nav {
+    margin: 5px;
+    line-height: 30px;
+}
+
+/* --------------------------------------------------------------------------
+   6. Console / Terminal Styling
+   -------------------------------------------------------------------------- */
+.console-wrapper {
+    height: calc(100vh - 180px);
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.console-terminal {
+    flex: 1;
+    background: #0c0c0c;
+    border: 1px solid #2a2a2a;
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Consolas', 'Courier New', 'Lucida Console', monospace;
+}
+
+/* Terminal title bar */
+.console-titlebar {
+    background: #1a1a2e;
+    padding: 6px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid #2a2a3e;
+}
+
+.console-titlebar .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.console-titlebar .dot.red    { background: #ff5f57; }
+.console-titlebar .dot.yellow { background: #ffbd2e; }
+.console-titlebar .dot.green  { background: #28c840; }
+
+.console-titlebar .title {
+    color: #6b7a99;
+    font-size: 12px;
+    margin-left: 8px;
+}
+
+/* Console output area */
+.console-output {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px 16px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #d4d4d4;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.console-output .cmd-line    { color: #4ade80; }
+.console-output .cmd-prompt  { color: #3b82f6; user-select: none; }
+.console-output .cmd-output  { color: #d4d4d4; }
+.console-output .cmd-error   { color: #f87171; }
+.console-output .cmd-success { color: #4ade80; }
+
+/* Console input area */
+.console-input-area {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    background: #0c0c0c;
+    border-top: 1px solid #1a1a2e;
+}
+
+.console-prompt {
+    color: #3b82f6;
+    font-size: 13px;
+    white-space: nowrap;
+    user-select: none;
+    margin-right: 8px;
+}
+
+.console-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #4ade80;
+    font-family: inherit;
+    font-size: 13px;
+    caret-color: #4ade80;
+}
+
+.console-input::placeholder {
+    color: #333;
+}
+
+/* Blinking cursor */
+@keyframes blink-cursor {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0; }
+}
+
+.console-input:focus::placeholder {
+    animation: blink-cursor 1s step-end infinite;
+}
+
+/* Typing animation */
+.typing-char {
+    animation: typeIn 0.02s forwards;
+}
+
+@keyframes typeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* --------------------------------------------------------------------------
+   7. Status Panel Styles
+   -------------------------------------------------------------------------- */
+.panel-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.panel-header .state-label {
+    padding: 4px 16px;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.panel-header .state-label.state-up {
+    background: #27ae60;
+}
+
+.panel-header .state-label.state-down {
+    background: #e74c3c;
+}
+
+/* --------------------------------------------------------------------------
+   8. Stub / Placeholder Page
+   -------------------------------------------------------------------------- */
+.stub-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+}
+
+.stub-message {
+    text-align: center;
+    padding: 40px 60px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    color: #888;
+    font-size: 18px;
+    background: #fafafa;
+}
+
+.stub-message h2 {
+    margin: 0 0 8px;
+    font-weight: 600;
+    color: #666;
+}
+
+.stub-message p {
+    margin: 0;
+    font-size: 14px;
+    color: #999;
+}
+
+/* --------------------------------------------------------------------------
+   9. Responsive — enforce minimum width
+   -------------------------------------------------------------------------- */
+@media screen and (max-width: 1100px) {
+    #header,
+    #content {
+        min-width: 1100px;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   10. State Text Colors
+   -------------------------------------------------------------------------- */
+.state-up {
+    color: #27ae60;
+}
+
+.state-down {
+    color: #e74c3c;
+}
+
+.state-norx {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+/* --------------------------------------------------------------------------
+   11. Console Panel (slide-up overlay)
+   -------------------------------------------------------------------------- */
+#console-panel {
+    position: fixed;
+    bottom: 0;
+    left: 230px;
+    right: 0;
+    height: 300px;
+    background: #0c0c0c;
+    border-top: 2px solid #333;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    font-family: 'Consolas', 'Courier New', monospace;
+}
+
+#console-panel .console-header {
+    background: #1a1a2e;
+    padding: 6px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #aaa;
+    font-size: 13px;
+    border-bottom: 1px solid #333;
+}
+
+#console-panel .console-close {
+    cursor: pointer;
+    font-size: 20px;
+    color: #888;
+}
+
+#console-panel .console-close:hover {
+    color: #fff;
+}
+
+#console-panel .console-output {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 16px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #d4d4d4;
+    white-space: pre-wrap;
+}
+
+#console-panel .console-input-line {
+    display: flex;
+    align-items: center;
+    padding: 6px 16px;
+    border-top: 1px solid #333;
+    background: #111;
+}
+
+#console-panel .console-prompt {
+    color: #3b82f6;
+    font-size: 13px;
+    margin-right: 8px;
+    white-space: nowrap;
+}
+
+#console-panel .console-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #4ade80;
+    font-family: inherit;
+    font-size: 13px;
+}
+
+/* --------------------------------------------------------------------------
+   12. Notification toast
+   -------------------------------------------------------------------------- */
+.notification {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    background: #1a1a2e;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 6px;
+    border-left: 4px solid #3b82f6;
+    font-size: 14px;
+    z-index: 2000;
+    animation: slideIn 0.3s ease;
+}
+
+.notification.fade-out {
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100px); opacity: 0; }
+    to   { transform: translateX(0); opacity: 1; }
+}
+
+/* --------------------------------------------------------------------------
+   13. Nav link styling in tree
+   -------------------------------------------------------------------------- */
+.nav-link {
+    cursor: pointer;
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 2px 0;
+}
+
+.nav-link:hover {
+    color: #a3d3f9;
+}
