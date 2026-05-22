@@ -1,0 +1,15 @@
+2026-05-22 21:25:44 [INFO] vsat: Logging initialized → C:\VSAT_Simulator_Package\source\logs\vsat_server.log
+2026-05-22 21:25:45 [INFO] vsat: Config loaded: port=8080, debug=False, partial_mode=True
+2026-05-22 21:25:45 [INFO] vsat: Starting uvicorn on 0.0.0.0:8080
+2026-05-22 21:25:45 [INFO] vsat: Initializing database...
+2026-05-22 21:25:45 [INFO] vsat.database: Opening database: C:\VSAT_Simulator_Package\source\data\vsat.db
+2026-05-22 21:25:45 [INFO] vsat.database: Database initialized successfully
+2026-05-22 21:25:45 [INFO] vsat: Database ready
+2026-05-22 21:25:45 [INFO] vsat: Server started — LAN IP: 10.159.180.31, port: 8080
+2026-05-22 21:26:14 [INFO] vsat.auth: Login attempt: name=qwer group=334
+2026-05-22 21:26:14 [INFO] vsat.database: New session: name=qwer group=334 session=d1d56a24edbd4e66904a249a32c29044
+2026-05-22 21:26:14 [INFO] vsat.auth: Login OK: name=qwer session=d1d56a24edbd4e66904a249a32c29044 is_new=True
+2026-05-22 21:26:14 [INFO] vsat.websocket: WS connected: session=d1d56a24edbd4e66904a249a32c29044 (total: 1 sessions)
+2026-05-22 21:26:26 [INFO] vsat.websocket: WS disconnected: session=d1d56a24edbd4e66904a249a32c29044 (total: 0 sessions)
+2026-05-22 21:26:42 [INFO] vsat: Shutting down server...
+2026-05-22 21:26:42 [INFO] vsat: Database closed, shutdown complete

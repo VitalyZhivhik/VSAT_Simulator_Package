@@ -2,3 +2,8 @@ exe
 \exe
 \.venv
 \venv
+\sixth
+\.sixth
+\source\logs
+\source\server\__pycache__
+\source\routes\__pycache__
