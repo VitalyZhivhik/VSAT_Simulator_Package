@@ -16,3 +16,12 @@
 2026-09-04 16:07:43 [INFO] vsat: Logging initialized → C:\Spytnik\VSAT_Simulator_Package\source\logs\vsat_server.log
 2026-09-04 16:07:43 [INFO] vsat: Config loaded: port=8080, debug=False, partial_mode=True
 2026-09-04 16:07:43 [INFO] vsat: Starting uvicorn on 0.0.0.0:8080
+2026-09-04 16:07:43 [INFO] vsat: Initializing database...
+2026-09-04 16:07:43 [INFO] vsat.database: Opening database: C:\Spytnik\VSAT_Simulator_Package\source\data\vsat.db
+2026-09-04 16:07:43 [INFO] vsat.database: Database initialized successfully
+2026-09-04 16:07:43 [INFO] vsat: Database ready
+2026-09-04 16:07:43 [INFO] vsat: Server started — LAN IP: 10.32.237.3, port: 8080
+2026-09-04 16:08:31 [INFO] vsat.auth: Login attempt: name=user group=user
+2026-09-04 16:08:31 [INFO] vsat.database: New session: name=user group=user session=ee826a82057c4a9d9fe8aebcb7732091
+2026-09-04 16:08:31 [INFO] vsat.auth: Login OK: name=user session=ee826a82057c4a9d9fe8aebcb7732091 is_new=True
+2026-09-04 16:08:31 [INFO] vsat.websocket: WS connected: session=ee826a82057c4a9d9fe8aebcb7732091 (total: 1 sessions)
