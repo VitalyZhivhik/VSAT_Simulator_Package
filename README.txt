@@ -38,3 +38,6 @@ TROUBLESHOOTING
 - If EXE fails, try source/ fallback
 - Ensure port 8080 is not used by another application
 - On Windows Firewall: allow python.exe or VSAT_Simulator.exe
+
+
+pip install -r requirements.txt
