@@ -7,3 +7,7 @@ exe
 \source\logs
 \source\server\__pycache__
 \source\routes\__pycache__
+\VSAT_Simulator_Package\source\server\routes\__pycache__
+VSAT_Simulator_Package\source\server\__pycache__
+VSAT_Simulator_Package\source\logs
+VSAT_Simulator_Package\source\data
