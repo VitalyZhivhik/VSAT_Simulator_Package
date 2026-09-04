@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="/static/css/ls.css">
+    <title>CEL-AC 3 — Настройка профиля</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 10px;
+            margin: 0;
+            background: #fff;
+        }
+        .profile-nav {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 8px 0;
+            border-bottom: 2px solid #369;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+        .profile-nav a {
+            display: inline-block;
+            padding: 4px 12px;
+            text-decoration: none;
+            color: #369;
+            font-weight: bold;
+            border: 1px solid #369;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+        .profile-nav a:hover {
+            background: #369;
+            color: #fff;
+        }
+        .profile-nav a.active {
+            background: #369;
+            color: #fff;
+        }
+        .profile-nav .sep {
+            color: #ccc;
+            margin: 0 4px;
+        }
+        .profile-nav .info-text {
+            font-size: 12px;
+            color: #888;
+            margin-left: 10px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 2px;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        .tabs button {
+            padding: 6px 16px;
+            background: #f5f5f5;
+            border: 1px solid #ccc;
+            border-bottom: none;
+            border-radius: 4px 4px 0 0;
+            cursor: pointer;
+            font-size: 13px;
+            color: #555;
+            font-weight: normal;
+            transition: all 0.15s;
+        }
+        .tabs button:hover {
+            background: #e8e8e8;
+        }
+        .tabs button.active {
+            background: #fff;
+            color: #333;
+            font-weight: bold;
+            border-bottom: 2px solid #369;
+        }
+        .tabs button.hidden-tab {
+            display: none;
+        }
+        .tab-content {
+            display: none;
+            padding: 10px 0;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .tab-content.hidden-tab {
+            display: none !important;
+        }
+
+        .param-row {
+            margin: 6px 0;
+            clear: both;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .param-label {
+            display: inline-block;
+            width: 120px;
+            font-weight: bold;
+            font-size: 14px;
+            color: #333;
+        }
+        .param-label-sm {
+            width: 80px;
+        }
+        .param-value {
+            display: inline-block;
+        }
+        input[type="text"],
+        input[type="number"],
+        select {
+            padding: 4px 8px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 14px;
+            background: #fff;
+        }
+        input[type="checkbox"] {
+            margin: 0 8px 0 0;
+            width: 16px;
+            height: 16px;
+        }
+        input:focus,
+        select:focus {
+            border-color: #369;
+            outline: none;
+        }
+
+        .btn-apply {
+            background: #369;
+            color: #fff;
+            border: 1px solid #369;
+            padding: 6px 24px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .btn-apply:hover {
+            background: #2a547e;
+        }
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+            border: 1px solid #ccc;
+            padding: 6px 16px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            flex-wrap: wrap;
+        }
+        .btn-group .spacer {
+            flex: 1;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #369;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 4px;
+            margin: 15px 0 10px;
+        }
+
+        .valid-col {
+            display: inline-block;
+            width: 30px;
+            text-align: center;
+            font-weight: bold;
+            color: #7dd228;
+        }
+
+        .settings-table {
+            border-collapse: collapse;
+            margin: 5px 0;
+        }
+        .settings-table td {
+            padding: 4px 10px 4px 0;
+            border: none;
+            font-size: 14px;
+        }
+        .settings-table .label-cell {
+            font-weight: bold;
+            color: #555;
+            width: 120px;
+        }
+        .settings-table .valid-cell {
+            width: 60px;
+            text-align: center;
+            color: #7dd228;
+            font-weight: bold;
+        }
+
+        .msg {
+            padding: 8px 12px;
+            border-radius: 4px;
+            margin: 8px 0;
+            display: none;
+        }
+        .msg.success {
+            display: block;
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #a5d6a7;
+        }
+
+        @media (max-width: 700px) {
+            .param-label {
+                width: 80px;
+                font-size: 13px;
+            }
+            .profile-nav a {
+                font-size: 12px;
+                padding: 3px 8px;
+            }
+            .tabs button {
+                font-size: 11px;
+                padding: 4px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ═══ НАВИГАЦИЯ ПО ПРОФИЛЯМ ═══ -->
+    <div class="profile-nav" id="profileNav">
+        <a href="#" onclick="switchProfile(1)">1</a>
+        <a href="#" onclick="switchProfile(2)">2</a>
+        <a href="#" onclick="switchProfile(3)">3</a>
+        <a href="#" onclick="switchProfile(4)">4</a>
+        <a href="#" onclick="switchProfile(5)">5</a>
+        <a href="#" onclick="switchProfile(6)">6</a>
+        <a href="#" onclick="switchProfile(7)">7</a>
+        <a href="#" onclick="switchProfile(8)">8</a>
+        <span class="sep">|</span>
+        <span class="info-text">Profile <span id="currentProfileDisplay">1</span> (<span id="currentModeDisplay">none</span>)</span>
+    </div>
+
+    <!-- ═══ ВКЛАДКИ ═══ -->
+    <div class="tabs" id="tabHeaders">
+        <button class="active" data-tab="basic" onclick="switchTab('basic')">Basic</button>
+        <button class="hidden-tab" data-tab="tdm_rx" onclick="switchTab('tdm_rx')">TDM/SCPC RX</button>
+        <button class="hidden-tab" data-tab="tdm_tx" onclick="switchTab('tdm_tx')">TDM/SCPC TX</button>
+        <button class="hidden-tab" data-tab="modulator" onclick="switchTab('modulator')">Modulator</button>
+        <button class="hidden-tab" data-tab="timing" onclick="switchTab('timing')">Timing</button>
+        <button class="hidden-tab" data-tab="tlc" onclick="switchTab('tlc')">TLC</button>
+        <button class="hidden-tab" data-tab="tdm_acm" onclick="switchTab('tdm_acm')">TDM ACM</button>
+        <button class="hidden-tab" data-tab="tdma_rf" onclick="switchTab('tdma_rf')">TDMA RF</button>
+        <button class="hidden-tab" data-tab="tdma_prot" onclick="switchTab('tdma_prot')">TDMA prot</button>
+        <button class="hidden-tab" data-tab="tdma_bw" onclick="switchTab('tdma_bw')">TDMA BW</button>
+        <button class="hidden-tab" data-tab="tdma_acm" onclick="switchTab('tdma_acm')">TDMA ACM</button>
+        <button class="hidden-tab" data-tab="roaming" onclick="switchTab('roaming')">Roaming</button>
+    </div>
+
+    <!-- ═══ BASIC TAB ═══ -->
+    <div id="tab-basic" class="tab-content active">
+        <div class="section-title">Basic settings</div>
+
+        <table class="settings-table">
+            <tr>
+                <td class="label-cell">Valid</td>
+                <td class="valid-cell" id="validStatus">+</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="label-cell">Autorun</td>
+                <td><input type="checkbox" id="autorun"></td>
+                <td style="font-size:12px;color:#888;">(автоматический запуск)</td>
+            </tr>
+            <tr>
+                <td class="label-cell">Mode</td>
+                <td>
+                    <select id="modeSelect" onchange="modeChanged()" style="min-width:180px;">
+                        <!-- опции будут заполнены из JS -->
+                    </select>
+                </td>
+                <td style="font-size:12px;color:#888;">(выберите режим)</td>
+            </tr>
+            <tr>
+                <td class="label-cell">Timeout (s)</td>
+                <td><input type="number" id="timeout" value="10" min="10" max="250" style="width:60px;"></td>
+                <td style="font-size:12px;color:#888;">(10-250)</td>
+            </tr>
+            <tr>
+                <td class="label-cell">Title</td>
+                <td><input type="text" id="title" value="" style="width:250px;" placeholder="Название профиля"></td>
+                <td></td>
+            </tr>
+        </table>
+
+        <div class="btn-group">
+            <button class="btn-apply" onclick="applyProfile()">Apply</button>
+            <button class="btn-secondary" onclick="resetProfile()">Reset</button>
+            <span class="spacer"></span>
+            <span style="font-size:13px;color:#888;display:flex;align-items:center;gap:8px;">
+                To profile
+                <select id="copyTarget" style="padding:3px 6px;border:1px solid #ccc;border-radius:3px;">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                </select>
+                <button class="btn-secondary" onclick="copyProfile()" style="padding:3px 12px;">Copy</button>
+            </span>
+        </div>
+
+        <div class="msg" id="msgBox"></div>
+    </div>
+
+    <!-- ═══ TDM/SCPC RX TAB ═══ -->
+    <div id="tab-tdm_rx" class="tab-content hidden-tab">
+        <div class="section-title">TDM/SCPC RX settings</div>
+        <table class="settings-table">
+            <tr><td class="label-cell">Rx1 LO (kHz)</td><td><input type="text" id="rx1_lo" value="0" style="width:120px;"></td></tr>
+            <tr><td class="label-cell">Rx2 LO (kHz)</td><td><input type="text" id="rx2_lo" value="0" style="width:120px;"></td></tr>
+            <tr><td class="label-cell">LNB Power</td><td><input type="checkbox" id="rx_power"></td></tr>
+            <tr><td class="label-cell">10MHz Ref</td><td><input type="checkbox" id="rx_10mhz"></td></tr>
+            <tr><td class="label-cell">Rx1 SpInv</td><td><input type="checkbox" id="rx1_spinv"></td></tr>
+            <tr><td class="label-cell">Rx2 SpInv</td><td><input type="checkbox" id="rx2_spinv"></td></tr>
+            <tr><td class="label-cell">Rx1 Freq Adj</td><td><input type="text" id="rx1_freq_adj" value="0" style="width:80px;"></td></tr>
+            <tr><td class="label-cell">Rx2 Freq Adj</td><td><input type="text" id="rx2_freq_adj" value="0" style="width:80px;"></td></tr>
+        </table>
+    </div>
+
+    <!-- ═══ TDM/SCPC TX TAB ═══ -->
+    <div id="tab-tdm_tx" class="tab-content hidden-tab">
+        <div class="section-title">TDM/SCPC TX settings</div>
+        <table class="settings-table">
+            <tr><td class="label-cell">Tx LO (kHz)</td><td><input type="text" id="tx_lo" value="0" style="width:120px;"></td></tr>
+            <tr><td class="label-cell">Tx Power</td><td><input type="checkbox" id="tx_power"></td></tr>
+            <tr><td class="label-cell">Tx SpInv</td><td><input type="checkbox" id="tx_spinv"></td></tr>
+            <tr><td class="label-cell">Tx Freq Adj</td><td><input type="text" id="tx_freq_adj" value="0" style="width:80px;"></td></tr>
+        </table>
+    </div>
+
+    <!-- ═══ ДРУГИЕ ВКЛАДКИ (заглушки) ═══ -->
+    <div id="tab-modulator" class="tab-content hidden-tab">
+        <div class="section-title">Modulator settings</div>
+        <p style="color:#888;padding:20px;">Настройки модулятора</p>
+    </div>
+    <div id="tab-timing" class="tab-content hidden-tab">
+        <div class="section-title">Timing settings</div>
+        <p style="color:#888;padding:20px;">Настройки тайминга</p>
+    </div>
+    <div id="tab-tlc" class="tab-content hidden-tab">
+        <div class="section-title">TLC settings</div>
+        <p style="color:#888;padding:20px;">Настройки TLC</p>
+    </div>
+    <div id="tab-tdm_acm" class="tab-content hidden-tab">
+        <div class="section-title">TDM ACM settings</div>
+        <p style="color:#888;padding:20px;">Настройки адаптивной модуляции TDM</p>
+    </div>
+    <div id="tab-tdma_rf" class="tab-content hidden-tab">
+        <div class="section-title">TDMA RF settings</div>
+        <p style="color:#888;padding:20px;">Настройки TDMA RF</p>
+    </div>
+    <div id="tab-tdma_prot" class="tab-content hidden-tab">
+        <div class="section-title">TDMA protocol settings</div>
+        <p style="color:#888;padding:20px;">Настройки протокола TDMA</p>
+    </div>
+    <div id="tab-tdma_bw" class="tab-content hidden-tab">
+        <div class="section-title">TDMA BW settings</div>
+        <p style="color:#888;padding:20px;">Настройки полосы TDMA</p>
+    </div>
+    <div id="tab-tdma_acm" class="tab-content hidden-tab">
+        <div class="section-title">TDMA ACM settings</div>
+        <p style="color:#888;padding:20px;">Настройки адаптивной модуляции TDMA</p>
+    </div>
+    <div id="tab-roaming" class="tab-content hidden-tab">
+        <div class="section-title">Roaming settings</div>
+        <p style="color:#888;padding:20px;">Настройки роуминга</p>
+    </div>
+
+    <script>
+        // ── Ключ для localStorage ──
+        var STORAGE_KEY = 'profileConfigs_v2';
+
+        // ── Только существующие профили ──
+        var ALL_MODES = [
+            'none',
+            'SCPC modem',
+            'Star station',
+            'DAMA station',
+            'Star hub',
+            'MF hub',
+            'DAMA hub',
+            'DAMA inroute'
+        ];
+
+        // ── Дефолтные параметры для каждого профиля ──
+        var MODE_DEFAULTS = {
+            'none': {
+                rx1_lo: 0, rx2_lo: 0, tx_lo: 0,
+                rx_power: false, rx_10mhz: false,
+                rx1_spinv: false, rx2_spinv: false, tx_spinv: false,
+                tx_power: false, tx_freq_adj: 0,
+                rx1_freq_adj: 0, rx2_freq_adj: 0,
+                desc: 'Базовый режим — профиль не выбран'
+            },
+            'SCPC modem': {
+                rx1_lo: 9750000, rx2_lo: 0, tx_lo: 13050000,
+                rx_power: true, rx_10mhz: true,
+                rx1_spinv: false, rx2_spinv: false, tx_spinv: false,
+                tx_power: true, tx_freq_adj: 0,
+                rx1_freq_adj: 0, rx2_freq_adj: 0,
+                desc: 'SCPC модем — постоянное выделенное соединение'
+            },
+            'Star station': {
+                rx1_lo: 9750000, rx2_lo: 0, tx_lo: 13050000,
+                rx_power: true, rx_10mhz: true,
+                rx1_spinv: false, rx2_spinv: false, tx_spinv: false,
+                tx_power: true, tx_freq_adj: 0,
+                rx1_freq_adj: 0, rx2_freq_adj: 0,
+                desc: 'Звездообразная станция — подключение к хабу'
+            },
+            'DAMA station': {
+                rx1_lo: 9750000, rx2_lo: 0, tx_lo: 13050000,
+                rx_power: true, rx_10mhz: true,
+                rx1_spinv: false, rx2_spinv: false, tx_spinv: false,
+                tx_power: true, tx_freq_adj: 0,
+                rx1_freq_adj: 0, rx2_freq_adj: 0,
+                desc: 'DAMA станция — динамическое выделение каналов'
+            },
+            'Star hub': {
+                rx1_lo: 9750000, rx2_lo: 0, tx_lo: 13050000,
+                rx_power: true, rx_10mhz: true,
+                rx1_spinv: false, rx2_spinv: false, tx_spinv: false,
+                tx_power: true, tx_freq_adj: 0,
+                rx1_freq_adj: 0, rx2_freq_adj: 0,
+                desc: 'Звездообразный хаб — центральный узел'
+            },
+            'MF hub': {
+                rx1_lo: 9750000, rx2_lo: 9750000, tx_lo: 13050000,
+                rx_power: true, rx_10mhz: true,
+                rx1_spinv: false, rx2_spinv: false, tx_spinv: false,
+                tx_power: true, tx_freq_adj: 0,
+                rx1_freq_adj: 0, rx2_freq_adj: 0,
+                desc: 'Многочастотный хаб — поддержка нескольких каналов'
+            },
+            'DAMA hub': {
+                rx1_lo: 9750000, rx2_lo: 0, tx_lo: 13050000,
+                rx_power: true, rx_10mhz: true,
+                rx1_spinv: false, rx2_spinv: false, tx_spinv: false,
+                tx_power: true, tx_freq_adj: 0,
+                rx1_freq_adj: 0, rx2_freq_adj: 0,
+                desc: 'DAMA хаб — управление динамическим выделением'
+            },
+            'DAMA inroute': {
+                rx1_lo: 9750000, rx2_lo: 0, tx_lo: 13050000,
+                rx_power: true, rx_10mhz: true,
+                rx1_spinv: false, rx2_spinv: false, tx_spinv: false,
+                tx_power: true, tx_freq_adj: 0,
+                rx1_freq_adj: 0, rx2_freq_adj: 0,
+                desc: 'DAMA входящий канал'
+            }
+        };
+
+        // ── Загрузка сохранённых конфигураций из localStorage ──
+        function loadAllConfigs() {
+            var saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                try {
+                    var parsed = JSON.parse(saved);
+                    // Проверяем, что все 8 профилей есть
+                    for (var i = 1; i <= 8; i++) {
+                        if (!parsed[i]) {
+                            parsed[i] = {
+                                mode: 'none',
+                                autorun: false,
+                                timeout: 10,
+                                title: '',
+                                rx1_lo: 0, rx2_lo: 0, tx_lo: 0,
+                                rx_power: false, rx_10mhz: false,
+                                rx1_spinv: false, rx2_spinv: false, tx_spinv: false,
+                                tx_power: false, tx_freq_adj: 0,
+                                rx1_freq_adj: 0, rx2_freq_adj: 0
+                            };
+                        }
+                    }
+                    return parsed;
+                } catch (e) {
+                    console.warn('Ошибка загрузки конфигураций:', e);
+                }
+            }
+            // Если нет сохранённых — создаём дефолтные
+            var defaults = {};
+            for (var i = 1; i <= 8; i++) {
+                defaults[i] = {
+                    mode: 'none',
+                    autorun: false,
+                    timeout: 10,
+                    title: '',
+                    rx1_lo: 0, rx2_lo: 0, tx_lo: 0,
+                    rx_power: false, rx_10mhz: false,
+                    rx1_spinv: false, rx2_spinv: false, tx_spinv: false,
+                    tx_power: false, tx_freq_adj: 0,
+                    rx1_freq_adj: 0, rx2_freq_adj: 0
+                };
+            }
+            return defaults;
+        }
+
+        // ── Сохранение всех конфигураций в localStorage ──
+        function saveAllConfigs() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(profileConfigs));
+            } catch (e) {
+                console.warn('Ошибка сохранения конфигураций:', e);
+            }
+        }
+
+        // ── Инициализация ──
+        var profileConfigs = loadAllConfigs();
+        var currentProfileNum = 1;
+        var currentMode = 'none';
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var urlParams = new URLSearchParams(window.location.search);
+            var da = urlParams.get('da');
+            if (da) {
+                currentProfileNum = parseInt(da);
+                if (currentProfileNum < 1 || currentProfileNum > 8) currentProfileNum = 1;
+            }
+            populateModeSelect();
+            loadProfile(currentProfileNum);
+            highlightNav(currentProfileNum);
+            updateTabsVisibility(currentMode);
+            switchTab('basic');
+        });
+
+        // ── Заполнить выпадающий список Mode ──
+        function populateModeSelect() {
+            var sel = document.getElementById('modeSelect');
+            sel.innerHTML = '';
+            for (var i = 0; i < ALL_MODES.length; i++) {
+                var mode = ALL_MODES[i];
+                var opt = document.createElement('option');
+                opt.value = mode;
+                opt.textContent = mode;
+                sel.appendChild(opt);
+            }
+        }
+
+        // ── Переключение между профилями ──
+        function switchProfile(num) {
+            if (num < 1 || num > 8) return;
+            saveCurrentState();
+            currentProfileNum = num;
+            loadProfile(num);
+            highlightNav(num);
+            document.getElementById('currentProfileDisplay').textContent = num;
+            document.getElementById('msgBox').className = 'msg';
+            document.getElementById('msgBox').textContent = '';
+        }
+
+        function highlightNav(num) {
+            var links = document.querySelectorAll('#profileNav a');
+            links.forEach(function(link, index) {
+                link.classList.toggle('active', (index + 1) === num);
+            });
+        }
+
+        // ── Сохранить текущее состояние ──
+        function saveCurrentState() {
+            var config = profileConfigs[currentProfileNum];
+            if (!config) return;
+            var modeSelect = document.getElementById('modeSelect');
+            if (modeSelect) {
+                config.mode = modeSelect.value;
+            }
+            config.autorun = document.getElementById('autorun').checked;
+            config.timeout = parseInt(document.getElementById('timeout').value) || 10;
+            config.title = document.getElementById('title').value;
+            config.rx1_lo = parseInt(document.getElementById('rx1_lo').value) || 0;
+            config.rx2_lo = parseInt(document.getElementById('rx2_lo').value) || 0;
+            config.tx_lo = parseInt(document.getElementById('tx_lo').value) || 0;
+            config.rx_power = document.getElementById('rx_power').checked;
+            config.rx_10mhz = document.getElementById('rx_10mhz').checked;
+            config.rx1_spinv = document.getElementById('rx1_spinv').checked;
+            config.rx2_spinv = document.getElementById('rx2_spinv').checked;
+            config.tx_spinv = document.getElementById('tx_spinv').checked;
+            config.tx_power = document.getElementById('tx_power').checked;
+            config.tx_freq_adj = parseInt(document.getElementById('tx_freq_adj').value) || 0;
+            config.rx1_freq_adj = parseInt(document.getElementById('rx1_freq_adj').value) || 0;
+            config.rx2_freq_adj = parseInt(document.getElementById('rx2_freq_adj').value) || 0;
+            saveAllConfigs();
+        }
+
+        // ── Загрузка профиля ──
+        function loadProfile(num) {
+            var config = profileConfigs[num];
+            if (!config) {
+                config = {
+                    mode: 'none',
+                    autorun: false,
+                    timeout: 10,
+                    title: '',
+                    rx1_lo: 0, rx2_lo: 0, tx_lo: 0,
+                    rx_power: false, rx_10mhz: false, rx1_spinv: false, rx2_spinv: false,
+                    tx_spinv: false, tx_power: false, tx_freq_adj: 0,
+                    rx1_freq_adj: 0, rx2_freq_adj: 0
+                };
+                profileConfigs[num] = config;
+            }
+
+            currentMode = config.mode || 'none';
+            document.getElementById('modeSelect').value = currentMode;
+            document.getElementById('autorun').checked = config.autorun || false;
+            document.getElementById('timeout').value = config.timeout || 10;
+            document.getElementById('title').value = config.title || '';
+            document.getElementById('rx1_lo').value = config.rx1_lo || 0;
+            document.getElementById('rx2_lo').value = config.rx2_lo || 0;
+            document.getElementById('tx_lo').value = config.tx_lo || 0;
+            document.getElementById('rx_power').checked = config.rx_power || false;
+            document.getElementById('rx_10mhz').checked = config.rx_10mhz || false;
+            document.getElementById('rx1_spinv').checked = config.rx1_spinv || false;
+            document.getElementById('rx2_spinv').checked = config.rx2_spinv || false;
+            document.getElementById('tx_spinv').checked = config.tx_spinv || false;
+            document.getElementById('tx_power').checked = config.tx_power || false;
+            document.getElementById('tx_freq_adj').value = config.tx_freq_adj || 0;
+            document.getElementById('rx1_freq_adj').value = config.rx1_freq_adj || 0;
+            document.getElementById('rx2_freq_adj').value = config.rx2_freq_adj || 0;
+
+            updateValidStatus();
+            updateTabsVisibility(currentMode);
+            document.getElementById('currentModeDisplay').textContent = currentMode;
+            document.getElementById('currentProfileDisplay').textContent = num;
+        }
+
+        function updateValidStatus() {
+            var el = document.getElementById('validStatus');
+            if (currentMode !== 'none') {
+                el.textContent = '+';
+                el.style.color = '#7dd228';
+            } else {
+                el.textContent = ' ';
+                el.style.color = '#999';
+            }
+        }
+
+        function updateTabsVisibility(mode) {
+            var isNone = (mode === 'none');
+            var tabs = document.querySelectorAll('.tabs button');
+            var contents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach(function(btn) {
+                var tabId = btn.getAttribute('data-tab');
+                if (tabId === 'basic') {
+                    btn.classList.remove('hidden-tab');
+                } else {
+                    if (isNone) {
+                        btn.classList.add('hidden-tab');
+                    } else {
+                        btn.classList.remove('hidden-tab');
+                    }
+                }
+            });
+
+            contents.forEach(function(content) {
+                var id = content.id;
+                if (id === 'tab-basic') {
+                    content.classList.remove('hidden-tab');
+                } else {
+                    if (isNone) {
+                        content.classList.add('hidden-tab');
+                        content.classList.remove('active');
+                    } else {
+                        content.classList.remove('hidden-tab');
+                    }
+                }
+            });
+
+            if (isNone) {
+                switchTab('basic');
+            } else {
+                var activeTab = document.querySelector('.tabs button.active');
+                if (activeTab && activeTab.classList.contains('hidden-tab')) {
+                    switchTab('basic');
+                }
+            }
+        }
+
+        function modeChanged() {
+            var sel = document.getElementById('modeSelect');
+            var newMode = sel.value;
+            currentMode = newMode;
+
+            var defaults = MODE_DEFAULTS[newMode];
+            if (defaults) {
+                document.getElementById('rx1_lo').value = defaults.rx1_lo || 0;
+                document.getElementById('rx2_lo').value = defaults.rx2_lo || 0;
+                document.getElementById('tx_lo').value = defaults.tx_lo || 0;
+                document.getElementById('rx_power').checked = defaults.rx_power || false;
+                document.getElementById('rx_10mhz').checked = defaults.rx_10mhz || false;
+                document.getElementById('rx1_spinv').checked = defaults.rx1_spinv || false;
+                document.getElementById('rx2_spinv').checked = defaults.rx2_spinv || false;
+                document.getElementById('tx_spinv').checked = defaults.tx_spinv || false;
+                document.getElementById('tx_power').checked = defaults.tx_power || false;
+                document.getElementById('tx_freq_adj').value = defaults.tx_freq_adj || 0;
+                document.getElementById('rx1_freq_adj').value = defaults.rx1_freq_adj || 0;
+                document.getElementById('rx2_freq_adj').value = defaults.rx2_freq_adj || 0;
+            }
+
+            updateValidStatus();
+            updateTabsVisibility(newMode);
+            document.getElementById('currentModeDisplay').textContent = newMode;
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(function(el) {
+                el.classList.remove('active');
+            });
+            var target = document.getElementById('tab-' + tabId);
+            if (target && !target.classList.contains('hidden-tab')) {
+                target.classList.add('active');
+            } else {
+                var basic = document.getElementById('tab-basic');
+                if (basic) basic.classList.add('active');
+            }
+
+            document.querySelectorAll('.tabs button').forEach(function(btn) {
+                btn.classList.toggle('active', btn.getAttribute('data-tab') === tabId && !btn.classList.contains('hidden-tab'));
+            });
+        }
+
+        function applyProfile() {
+            saveCurrentState();
+            var msg = document.getElementById('msgBox');
+            msg.className = 'msg success';
+            msg.textContent = 'Настройки профиля #' + currentProfileNum + ' (' + currentMode + ') сохранены!';
+
+            // Обновляем родительскую таблицу
+            if (window.parent && window.parent.profileUpdated) {
+                window.parent.profileUpdated(currentProfileNum, currentMode);
+            }
+        }
+
+        function resetProfile() {
+            if (!confirm('Сбросить настройки профиля #' + currentProfileNum + '?')) return;
+            var defaults = MODE_DEFAULTS[currentMode];
+            if (defaults) {
+                document.getElementById('rx1_lo').value = defaults.rx1_lo || 0;
+                document.getElementById('rx2_lo').value = defaults.rx2_lo || 0;
+                document.getElementById('tx_lo').value = defaults.tx_lo || 0;
+                document.getElementById('rx_power').checked = defaults.rx_power || false;
+                document.getElementById('rx_10mhz').checked = defaults.rx_10mhz || false;
+                document.getElementById('rx1_spinv').checked = defaults.rx1_spinv || false;
+                document.getElementById('rx2_spinv').checked = defaults.rx2_spinv || false;
+                document.getElementById('tx_spinv').checked = defaults.tx_spinv || false;
+                document.getElementById('tx_power').checked = defaults.tx_power || false;
+                document.getElementById('tx_freq_adj').value = defaults.tx_freq_adj || 0;
+                document.getElementById('rx1_freq_adj').value = defaults.rx1_freq_adj || 0;
+                document.getElementById('rx2_freq_adj').value = defaults.rx2_freq_adj || 0;
+                document.getElementById('autorun').checked = false;
+                document.getElementById('timeout').value = 10;
+                document.getElementById('title').value = '';
+            }
+            var msg = document.getElementById('msgBox');
+            msg.className = 'msg success';
+            msg.textContent = 'Настройки сброшены к значениям по умолчанию';
+        }
+
+        function copyProfile() {
+            var target = parseInt(document.getElementById('copyTarget').value);
+            if (target === currentProfileNum) {
+                alert('Нельзя скопировать профиль сам в себя!');
+                return;
+            }
+            saveCurrentState();
+            profileConfigs[target] = JSON.parse(JSON.stringify(profileConfigs[currentProfileNum]));
+            saveAllConfigs();
+            var msg = document.getElementById('msgBox');
+            msg.className = 'msg success';
+            msg.textContent = 'Профиль #' + currentProfileNum + ' скопирован в профиль #' + target;
+        }
+    </script>
+
+</body>
+</html>

@@ -1,178 +1,307 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Comtech CEL-AC 3 Simulator</title>
-  <link rel="stylesheet" href="/static/css/comtech.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>CEL-AC 3 Simulator</title>
+    <link rel="stylesheet" href="/static/css/lm.css">
+    <link rel="stylesheet" href="/static/css/ls.css">
+    <style>
+        /* ... все стили как в предыдущей версии ... */
+        /* Добавляем стиль для iframe профилей */
+        #profile-detail-container iframe {
+            width: 100%;
+            min-height: 450px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: #fff;
+        }
+    </style>
 </head>
 <body>
 <script>
-  (function() {
-    var sid = sessionStorage.getItem('session_id');
-    if (!sid) { window.location.href = '/'; }
-  })();
+    (function() {
+        var sid = sessionStorage.getItem('session_id');
+        if (!sid) { window.location.href = '/'; }
+    })();
 </script>
 
 <div id="wrap">
-  <!-- HEADER -->
-  <div id="header">
-    <!-- Logo -->
-    <div class="logo"><span class="logo-text">COMTECH</span></div>
-
-    <!-- Status section -->
-    <div class="status">
-      <!-- SysLed -->
-      <div class="hdr-block hdr-led">
-        <div id="SysLed" class="sys-led cr"></div>
-      </div>
-
-      <!-- Name / Model -->
-      <div class="hdr-block hdr-info">
-        <div class="hdr-row"><span class="hdr-label">Имя:</span><span class="hdr-value" id="hdr-name">AC 3</span></div>
-        <div class="hdr-row"><span class="hdr-label">Модель:</span><span class="hdr-value">CEL-200X</span></div>
-      </div>
-
-      <!-- Profile / State -->
-      <div class="hdr-block hdr-info">
-        <div class="hdr-row"><span class="hdr-label">Профиль:</span><span class="hdr-value" id="hdr-profile">1-none</span></div>
-        <div class="hdr-row"><span class="hdr-label">Состояние:</span><span class="hdr-value" id="hdr-state" style="color:#fe5e37;font-weight:600">Нет RX</span></div>
-      </div>
-
-      <!-- 8 status buttons 4x2 -->
-      <div class="hdr-buttons">
-        <div class="btn-col">
-          <div id="btn-lan1" class="sbtn cg" onclick="showPage('lan1')">LAN1</div>
-          <div id="btn-lan2" class="sbtn cwd" onclick="showPage('lan2')">LAN2</div>
+    <!-- HEADER -->
+    <div id="header">
+        <a class="logo" href="#" onclick="showPage('overview');return false"></a>
+        <div class="status">
+            <div class="tb" style="margin-left:10px;margin-right:5px;">
+                <a href="#" onclick="showPage('sys');return false">
+                    <div id="SysLed" class="cg"></div>
+                </a>
+            </div>
+            <div class="tb">
+                <div class="tn">Name<br>Model</div>
+                <div class="tv" style="max-width:150px;">
+                    <span id="Name">AC 3</span><br>CEL-200X
+                </div>
+                <div class="tn">Profile<br>State<span id="StateLock" class="lock" style="visibility:hidden;">&nbsp;</span></div>
+                <div class="tv">
+                    <a id="Profile" href="#" onclick="showPage('profiles');return false" style="max-width:250px;">1-none</a>&nbsp;&nbsp;
+                    <a href="#" onclick="prst();return false;">↺</a><br>
+                    <span id="State" style="color:#fe5e37;font-weight:600">No RX</span>
+                </div>
+            </div>
+            <div class="ti">
+                <div class="cg" id="Lan1"><a href="#" onclick="showPage('lan1');return false">LAN1</a></div>
+                <div class="cw" id="Lan2"><a href="#" onclick="showPage('lan2');return false">LAN2</a></div>
+            </div>
+            <div class="ti">
+                <div class="cw" id="Dem1"><a href="#" onclick="showPage('dem1');return false">DEM1</a></div>
+                <div class="cwd" id="Dem2"><a href="#" onclick="showPage('dem2');return false">DEM2</a></div>
+            </div>
+            <div class="ti">
+                <div class="cw" id="Mod"><a href="#" onclick="showPage('mod');return false">MOD</a></div>
+                <div class="cw" id="Net"><a href="#" onclick="showPage('net');return false">NET</a></div>
+            </div>
+            <div class="ti">
+                <div class="cg" id="Sys"><a href="#" onclick="showPage('sys');return false">SYS</a></div>
+                <div class="cw" id="Mon"><a href="#" onclick="showPage('mon');return false">MON</a></div>
+            </div>
         </div>
-        <div class="btn-col">
-          <div id="btn-dem1" class="sbtn cr" onclick="showPage('dem1')">DEM1</div>
-          <div id="btn-dem2" class="sbtn cwd" onclick="showPage('dem2')">DEM2</div>
-        </div>
-        <div class="btn-col">
-          <div id="btn-mod" class="sbtn cr" onclick="showPage('mod')">MOD</div>
-          <div id="btn-net" class="sbtn cr" onclick="showPage('net')">NET</div>
-        </div>
-        <div class="btn-col">
-          <div id="btn-sys" class="sbtn cg" onclick="showPage('sys')">SYS</div>
-          <div id="btn-mon" class="sbtn cw" onclick="showPage('mon')">MON</div>
-        </div>
-      </div>
-
-      <!-- Toolbar icons -->
-      <div class="hdr-block hdr-tools">
-        <div class="tool-icon" title="Save Config" onclick="saveConfig()">&#128190;</div>
-        <div class="tool-icon" title="Clear Faults" onclick="clearFaults()">&#128465;</div>
-        <div class="tool-icon" title="Console" onclick="toggleConsole()">&#128187;</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- CONTENT -->
-  <div id="content">
-    <!-- LEFT NAVIGATION TREE -->
-    <div id="tree">
-      <ul id="myUL">
-        <li><a class="nav-link" onclick="showPage('overview')">Обзор</a></li>
-        <li><a class="nav-link" onclick="showPage('site_setup')">Настройка сайта</a></li>
-        <li><a class="nav-link" onclick="showPage('profiles')">Профили</a></li>
-        <li>
-          <span class="caret">IP - маршрутизация</span>
-          <ul class="nested">
-            <li><a class="nav-link" onclick="showPage('stub','IP routing — Static')">Static</a></li>
-            <li><a class="nav-link" onclick="showPage('stub','IP routing — Dynamic')">Dynamic</a></li>
-          </ul>
-        </li>
-        <li>
-          <span class="caret">Протоколы IP</span>
-          <ul class="nested">
-            <li><a class="nav-link" onclick="showPage('stub','SNMP')">SNMP</a></li>
-            <li><a class="nav-link" onclick="showPage('stub','DHCP')">DHCP</a></li>
-            <li><a class="nav-link" onclick="showPage('stub','DNS')">DNS</a></li>
-            <li><a class="nav-link" onclick="showPage('stub','ARP')">ARP</a></li>
-            <li><a class="nav-link" onclick="showPage('stub','NAT')">NAT</a></li>
-            <li><a class="nav-link" onclick="showPage('stub','RIPv2')">RIPv2</a></li>
-            <li><a class="nav-link" onclick="showPage('stub','SNTP')">SNTP</a></li>
-            <li><a class="nav-link" onclick="showPage('stub','RTP')">RTP</a></li>
-            <li><a class="nav-link" onclick="showPage('stub','TFTP')">TFTP</a></li>
-            <li><a class="nav-link" onclick="showPage('stub','GTP')">GTP</a></li>
-            <li><a class="nav-link" onclick="showPage('stub','Multicast')">Multicast</a></li>
-            <li><a class="nav-link" onclick="showPage('stub','Acceleration')">Acceleration</a></li>
-            <li><a class="nav-link" onclick="showPage('stub','Other settings')">Other settings</a></li>
-          </ul>
-        </li>
-        <li>
-          <span class="caret">QoS</span>
-          <ul class="nested">
-            <li><a class="nav-link" onclick="showPage('stub','Policies')">Policies</a></li>
-            <li><a class="nav-link" onclick="showPage('stub','Shapers')">Shapers</a></li>
-            <li><a class="nav-link" onclick="showPage('stub','Real-time')">Real-time</a></li>
-            <li><a class="nav-link" onclick="showPage('stub','Service mon.')">Service mon.</a></li>
-          </ul>
-        </li>
-        <li>
-          <span class="caret">Сеть</span>
-          <ul class="nested">
-            <li><a class="nav-link" onclick="showPage('net')">Overview</a></li>
-            <li><a class="nav-link" onclick="showPage('stub','Stations')">Stations</a></li>
-            <li><a class="nav-link" onclick="showPage('stub','MF TDMA')">MF TDMA</a></li>
-            <li><a class="nav-link" onclick="showPage('stub','ACM')">ACM</a></li>
-            <li><a class="nav-link" onclick="showPage('stub','STLC/NMS/Red')">STLC/NMS/Red</a></li>
-            <li><a class="nav-link" onclick="showPage('stub','COTM/AMIP')">COTM/AMIP</a></li>
-            <li><a class="nav-link" onclick="showPage('stub','Beam sw.')">Beam sw.</a></li>
-            <li><a class="nav-link" onclick="showPage('stub','Security')">Security</a></li>
-          </ul>
-        </li>
-        <li>
-          <span class="caret">Система</span>
-          <ul class="nested">
-            <li><a class="nav-link" onclick="showPage('sys')">General</a></li>
-            <li><a class="nav-link" onclick="showPage('stub','Interfaces')">Interfaces</a></li>
-            <li><a class="nav-link" onclick="showPage('lan1')">Ethernet</a></li>
-            <li><a class="nav-link" onclick="showPage('dem1')">Demodulator</a></li>
-            <li><a class="nav-link" onclick="showPage('mod')">Modulator</a></li>
-            <li><a class="nav-link" onclick="showPage('stub','Time-related')">Time-related</a></li>
-            <li><a class="nav-link" onclick="showPage('stub','User access')">User access</a></li>
-            <li><a class="nav-link" onclick="showPage('stub','Flash/Boot')">Flash/Boot</a></li>
-            <li><a class="nav-link" onclick="showPage('stub','Save/load')">Save/load</a></li>
-          </ul>
-        </li>
-        <li>
-          <span class="caret">Техническое обслуживание</span>
-          <ul class="nested">
-            <li><a class="nav-link" onclick="showPage('stub','Support info')">Support info</a></li>
-            <li><a class="nav-link" onclick="showPage('stub','Log')">Log</a></li>
-            <li><a class="nav-link" onclick="showPage('stub','Pointing')">Pointing</a></li>
-            <li><a class="nav-link" onclick="showPage('stub','Spectrum')">Spectrum</a></li>
-            <li><a class="nav-link" onclick="showPage('stub','Run script')">Run script</a></li>
-            <li><a class="nav-link" onclick="showPage('stub','Tuning')">Tuning</a></li>
-            <li><a class="nav-link" onclick="showPage('stub','Traffic gen.')">Traffic gen.</a></li>
-            <li><a class="nav-link" onclick="showPage('stub','Reboot')">Reboot</a></li>
-          </ul>
-        </li>
-        <li><a class="nav-link" onclick="toggleConsole()">Консоль</a></li>
-      </ul>
     </div>
 
-    <!-- MAIN CONTENT AREA -->
-    <div id="main"></div>
-  </div>
+    <!-- CONTENT -->
+    <div id="content">
+        <div id="tree">
+            <div style="float:left">
+                <div class="tooltip">
+                    <span class="saveconf_active" id="SaveCfg" onclick="saveConfig()">&nbsp;</span>
+                    <span class="tooltiptext">SaveConfig</span>
+                </div>
+                <div class="tooltip">
+                    <span class="clearfaults_active" id="ClrFaults" onclick="clearFaults()">&nbsp;</span>
+                    <span class="tooltiptext">ClearFaults</span>
+                </div>
+                <div class="tooltip">
+                    <a href="telnet://localhost"><span class="telnet">&nbsp;</span></a>
+                    <span class="tooltiptext">Telnet</span>
+                </div>
+            </div>
+            <div style="clear:left; padding-top:3px;">
+                <ul id="myUL">
+                    <div class="li-selector active" style="margin-left:-12px;">
+                        <li><a href="#" onclick="showPage('overview');return false">Overview</a></li>
+                    </div>
+                    <div class="li-selector" style="margin-left:-12px;">
+                        <li><a href="#" onclick="showPage('site_setup');return false">Site setup</a></li>
+                    </div>
+                    <div class="li-selector" style="margin-left:-12px;">
+                        <li><a href="#" onclick="showPage('profiles');return false">Profiles</a></li>
+                    </div>
+                    <div class="li-selector" style="margin-left:-12px;">
+                        <li><b></b><br></li>
+                    </div>
 
-  <!-- CONSOLE PANEL -->
-  <div id="console-panel" style="display:none;">
-    <div class="console-header">
-      <span>CEL-AC3 Console</span>
-      <span class="console-close" onclick="toggleConsole()">&times;</span>
+                    <!-- IP routing -->
+                    <li><span class="caret"><a>IP routing</a></span>
+                        <ul class="nested">
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="st"><a href="#">&emsp;</a></span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','Static');return false">Static</a></li>
+                            </div>
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="stmi">&emsp;</span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','Dynamic');return false">Dynamic</a></li>
+                            </div>
+                        </ul>
+                    </li>
+
+                    <!-- IP protocols -->
+                    <li><span class="caret"><a>IP protocols</a></span>
+                        <ul class="nested">
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="st"><a href="#">&emsp;</a></span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','SNMP');return false">SNMP</a></li>
+                            </div>
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="st"><a href="#">&emsp;</a></span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','DHCP');return false">DHCP</a></li>
+                            </div>
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="st"><a href="#">&emsp;</a></span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','DNS');return false">DNS</a></li>
+                            </div>
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="st"><a href="#">&emsp;</a></span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','ARP');return false">ARP</a></li>
+                            </div>
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="st"><a href="#">&emsp;</a></span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','NAT');return false">NAT</a></li>
+                            </div>
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="st"><a href="#">&emsp;</a></span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','RIPv2');return false">RIPv2</a></li>
+                            </div>
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="stmi">&emsp;</span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','SNTP');return false">SNTP</a></li>
+                            </div>
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="stmi">&emsp;</span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','RTP');return false">RTP</a></li>
+                            </div>
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="stmi">&emsp;</span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','TFTP');return false">TFTP</a></li>
+                            </div>
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="stmi">&emsp;</span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','GTP');return false">GTP</a></li>
+                            </div>
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="st"><a href="#">&emsp;</a></span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','Multicast');return false">Multicast</a></li>
+                            </div>
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="st"><a href="#">&emsp;</a></span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','Acceleration');return false">Acceleration</a></li>
+                            </div>
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="stmi">&emsp;</span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','Other settings');return false">Other settings</a></li>
+                            </div>
+                        </ul>
+                    </li>
+
+                    <!-- QoS -->
+                    <li><span class="caret"><a>QoS</a></span>
+                        <ul class="nested">
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="st"><a href="#">&emsp;</a></span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','Policies');return false">Policies</a></li>
+                            </div>
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="st"><a href="#">&emsp;</a></span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','Shapers');return false">Shapers</a></li>
+                            </div>
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="stmi">&emsp;</span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','Real-time');return false">Real-time</a></li>
+                            </div>
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="st"><a href="#">&emsp;</a></span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','Service mon.');return false">Service mon.</a></li>
+                            </div>
+                        </ul>
+                    </li>
+
+                    <!-- Network -->
+                    <li><span class="caret"><a>Network</a></span>
+                        <ul class="nested">
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="stmi">&emsp;</span><span class="mi">&emsp;</span><a href="#" onclick="showPage('net');return false">Overview</a></li>
+                            </div>
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="st"><a href="#">&emsp;</a></span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','Stations');return false">Stations</a></li>
+                            </div>
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="stmi">&emsp;</span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','MF TDMA');return false">MF TDMA</a></li>
+                            </div>
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="stmi">&emsp;</span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','ACM');return false">ACM</a></li>
+                            </div>
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="st"><a href="#">&emsp;</a></span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','STLC/NMS/Red');return false">STLC/NMS/Red</a></li>
+                            </div>
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="st"><a href="#">&emsp;</a></span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','COTM/AMIP');return false">COTM/AMIP</a></li>
+                            </div>
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="stmi">&emsp;</span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','Beam sw.');return false">Beam sw.</a></li>
+                            </div>
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="st"><a href="#">&emsp;</a></span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','Security');return false">Security</a></li>
+                            </div>
+                        </ul>
+                    </li>
+
+                    <!-- System -->
+                    <li><span class="caret"><a>System</a></span>
+                        <ul class="nested">
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="stmi">&emsp;</span><span class="mi">&emsp;</span><a href="#" onclick="showPage('sys');return false">General</a></li>
+                            </div>
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="stmi">&emsp;</span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','Interfaces');return false">Interfaces</a></li>
+                            </div>
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="stmi">&emsp;</span><span class="mi">&emsp;</span><a href="#" onclick="showPage('lan1');return false">Ethernet</a></li>
+                            </div>
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="stmi">&emsp;</span><span class="mi">&emsp;</span><a href="#" onclick="showPage('dem1');return false">Demodulator</a></li>
+                            </div>
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="stmi">&emsp;</span><span class="mi">&emsp;</span><a href="#" onclick="showPage('mod');return false">Modulator</a></li>
+                            </div>
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="stmi">&emsp;</span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','Time-related');return false">Time-related</a></li>
+                            </div>
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="stmi">&emsp;</span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','User access');return false">User access</a></li>
+                            </div>
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="stmi">&emsp;</span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','Flash/Boot');return false">Flash/Boot</a></li>
+                            </div>
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="stmi">&emsp;</span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','Save/load');return false">Save/load</a></li>
+                            </div>
+                        </ul>
+                    </li>
+
+                    <!-- Maintenance -->
+                    <li><span class="caret"><a>Maintenance</a></span>
+                        <ul class="nested">
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="stmi">&emsp;</span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','Support info');return false">Support info</a></li>
+                            </div>
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="stmi">&emsp;</span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','Log');return false">Log</a></li>
+                            </div>
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="stmi">&emsp;</span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','Pointing');return false">Pointing</a></li>
+                            </div>
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="stmi">&emsp;</span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','Spectrum');return false">Spectrum</a></li>
+                            </div>
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="stmi">&emsp;</span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','Run script');return false">Run script</a></li>
+                            </div>
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="st"><a href="#">&emsp;</a></span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','Tuning');return false">Tuning</a></li>
+                            </div>
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="stmi">&emsp;</span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','Traffic gen.');return false">Traffic gen.</a></li>
+                            </div>
+                            <div class="li-selector" style="margin-left:-24px;">
+                                <li><span class="stmi">&emsp;</span><span class="mi">&emsp;</span><a href="#" onclick="showPage('stub','Reboot');return false">Reboot</a></li>
+                            </div>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="main">
+            <div style="padding:20px;color:#888;">Загрузка...</div>
+        </div>
     </div>
-    <div id="console-output" class="console-output"></div>
-    <div class="console-input-line">
-      <span class="console-prompt">CEL-AC3&gt;</span>
-      <input type="text" id="console-input" class="console-input"
-             onkeydown="if(event.key==='Enter')sendCommand()"
-             autocomplete="off" spellcheck="false">
+
+    <!-- CONSOLE PANEL -->
+    <div id="console-panel">
+        <div class="console-header">
+            <span>CEL-AC3 Console</span>
+            <span class="console-close" onclick="toggleConsole()">&times;</span>
+        </div>
+        <div id="console-output" class="console-output"></div>
+        <div class="console-input-line">
+            <span class="console-prompt">CEL-AC3&gt;</span>
+            <input type="text" id="console-input" class="console-input"
+                   onkeydown="if(event.key==='Enter')sendCommand()"
+                   autocomplete="off" spellcheck="false">
+        </div>
     </div>
-  </div>
 </div>
+
+<script>
+function prst() {
+    fetch('/hy').catch(() => {});
+    showNotification('Profile refresh requested');
+    return false;
+}
+function clearFaults() {
+    showNotification('Faults cleared');
+}
+</script>
 
 <script src="/static/js/comtech.js"></script>
 </body>

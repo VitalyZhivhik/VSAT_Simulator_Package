@@ -273,6 +273,16 @@ def simulate_sys(config: FullConfig, ref: FullConfig) -> dict:
         "auto_restart_delay": 3,
         "sw_errors": "No SW errors",
         "config_errors": "No config errors",
+        "cfg": "saveconf_active",   # или "saveconf"
+        "flt": "clearfaults",       # или "clearfaults_active"
+        "site_name": config.site.site_name,
+        "profile_num": config.profile.active_profile,
+        "state_weight": "600",
+        "state_lock": "hidden",     # или "visible"
+        "profile_mode": config.profile.profile_mode,
+        "profile_active": config.profile.active_profile,
+        "profile_autorun": config.profile.profile_autorun,
+        "profile_timeout": config.profile.profile_timeout,
     }
 
 

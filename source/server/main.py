@@ -8,6 +8,9 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import RedirectResponse
+from pathlib import Path
+from fastapi.responses import FileResponse, HTMLResponse
 
 from server.config import load_config
 from server.database import get_db, get_setting, close_db
@@ -115,6 +118,10 @@ async def admin_page():
         return FileResponse(str(admin_html))
     return HTMLResponse("<h1>Admin panel — coming in Phase 3</h1>")
 
+@app.get("/cb3")
+async def profile_redirect():
+    """Перенаправление для профилей (совместимость с оригинальным URL)"""
+    return RedirectResponse(url="/terminal", status_code=302)
 
 @app.get("/api/help-text")
 async def public_help_text():
@@ -122,6 +129,13 @@ async def public_help_text():
     text = await get_setting("help_text")
     return {"help_text": text or ""}
 
+@app.get("/profiles/profile_config.html")
+async def profile_config_page():
+    """Страница настройки профиля (динамическая)"""
+    profile_path = Path(__file__).parent / "static" / "templates" / "profiles" / "profile_config.html"
+    if profile_path.exists():
+        return FileResponse(str(profile_path))
+    return HTMLResponse("<h1>Profile config not found</h1>", status_code=404)
 
 if __name__ == "__main__":
     config = load_config()
