@@ -29,3 +29,7 @@ source/server/routes/__pycache__/console.cpython-311.pyc
 source/server/routes/__pycache__/websocket.cpython-311.pyc
 source/data/vsat.db-wal
 source/logs/vsat_server.log
+source/data/vsat.db-wal
+source/data/vsat.db
+.gitignore
+source/server/__pycache__/status_simulator.cpython-311.pyc
