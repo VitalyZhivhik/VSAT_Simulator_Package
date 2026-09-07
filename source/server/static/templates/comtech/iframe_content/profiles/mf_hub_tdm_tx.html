@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" href="/static/css/ls.css">
+    <title>CEL-AC - TDM TX</title>
+</head>
+<body>
+<center>
+<h3>Profile 2 (MF hub)</h3>
+<a href="/sim/profiles/mf_hub/basic" class="nav-link">Basic</a> | 
+<a href="/sim/profiles/mf_hub/tdm_rx" class="nav-link">TDM/SCPC RX</a> | 
+<a href="/sim/profiles/mf_hub/tdm_tx" class="nav-link">TDM/SCPC TX</a> | 
+<a href="/sim/profiles/mf_hub/modulator" class="nav-link">Modulator</a> | 
+<a href="/sim/profiles/mf_hub/timing" class="nav-link">Timing</a> | 
+<a href="/sim/profiles/mf_hub/tlc" class="nav-link">TLC</a> | 
+<a href="/sim/profiles/mf_hub/tdm_acm" class="nav-link">TDM ACM</a> 
+<br>
+<a href="/sim/profiles/mf_hub/tdma_rf" class="nav-link">TDMA RF</a> | 
+<a href="/sim/profiles/mf_hub/tdma_prot" class="nav-link">TDMA prot</a> | 
+<a href="/sim/profiles/mf_hub/tdma_bw" class="nav-link">TDMA BW</a> | 
+<a href="/sim/profiles/mf_hub/tdma_acm" class="nav-link">TDMA ACM</a> | 
+<a href="/sim/profiles/mf_hub/roaming" class="nav-link">Roaming</a> 
+
+<h3>Modulator</h3>
+<form method="get" action="/sim/api/profiles/mf_hub/tdm_tx">
+    <input name="da" type="hidden" value="2">
+    <table>
+        <tbody>
+            <tr>
+                <td><font style="BACKGROUND-COLOR: red">TX on</font></td>
+                <td><input name="dd" type="checkbox" value="1"></td>
+            </tr>
+            <tr>
+                <td>TX level (-dBm) 1.0-46.0</td>
+                <td>
+                    <input name="db" type="text" size="1" maxlen="1" value="36">
+                    <div style="display:inline-block;position:relative;top:6px;left:0px;width:20px;">
+                        <input type="submit" name="ta" value="▴" class="p_b" style="height:1em; width:1.5em;line-height:1em;padding:0px;margin:0px;border:0px;background-color:#f3f3f3">
+                        <input type="submit" name="ta" value="▾" class="p_b" style="height:1em; width:1.5em;line-height:1em;padding:0px;margin:0px;border:0px;background-color:#f3f3f3">
+                    </div>
+                    <span style="position:relative;top:8px">•</span>
+                    <input name="dc" type="text" size="1" maxlen="1" value="0">
+                    <div style="display:inline-block;position:relative;top:6px;left:0px;width:20px;">
+                        <input type="submit" name="tb" value="▴" class="p_b" style="height:1em; width:1.5em;line-height:1em;padding:0px;margin:0px;border:0px;background-color:#f3f3f3">
+                        <input type="submit" name="tb" value="▾" class="p_b" style="height:1em; width:1.5em;line-height:1em;padding:0px;margin:0px;border:0px;background-color:#f3f3f3">
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <input type="submit" name="tf" value="Apply">
+    <div align="left"><a href="/sim/cc3">Back</a></div>
+</form>
+</center>
+</body>
+</html>

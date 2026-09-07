@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" href="/static/css/ls.css">
+    <title>CEL-AC - Profile Basic</title>
+</head>
+<body>
+<center>
+<h3>Profile <span id="profile_num">2</span> (MF hub)</h3>
+<a href="/sim/profiles/mf_hub/basic" class="nav-link">Basic</a> | 
+<a href="/sim/profiles/mf_hub/tdm_rx" class="nav-link">TDM/SCPC RX</a> | 
+<a href="/sim/profiles/mf_hub/tdm_tx" class="nav-link">TDM/SCPC TX</a> | 
+<a href="/sim/profiles/mf_hub/modulator" class="nav-link">Modulator</a> | 
+<a href="/sim/profiles/mf_hub/timing" class="nav-link">Timing</a> | 
+<a href="/sim/profiles/mf_hub/tlc" class="nav-link">TLC</a> | 
+<a href="/sim/profiles/mf_hub/tdm_acm" class="nav-link">TDM ACM</a> 
+<br>
+<a href="/sim/profiles/mf_hub/tdma_rf" class="nav-link">TDMA RF</a> | 
+<a href="/sim/profiles/mf_hub/tdma_prot" class="nav-link">TDMA prot</a> | 
+<a href="/sim/profiles/mf_hub/tdma_bw" class="nav-link">TDMA BW</a> | 
+<a href="/sim/profiles/mf_hub/tdma_acm" class="nav-link">TDMA ACM</a> | 
+<a href="/sim/profiles/mf_hub/roaming" class="nav-link">Roaming</a> 
+
+<h3>Basic settings</h3>
+<form method="get" action="/sim/api/profiles/mf_hub/basic">
+    <input name="da" type="hidden" value="2">
+    <table>
+        <tbody>
+            <tr>
+                <td>Valid</td>
+                <td><input name="db" type="checkbox" value="1"></td>
+            </tr>
+            <tr>
+                <td>Autorun</td>
+                <td><input name="dc" type="checkbox" value="1"></td>
+            </tr>
+            <tr>
+                <td>Mode</td>
+                <td>
+                    <select name="dd">
+                        <option value="0">none</option>
+                        <option value="1">SCPC modem</option>
+                        <option value="2">Star station</option>
+                        <option value="3">Mesh station</option>
+                        <option value="4">Hubless station</option>
+                        <option value="5">DAMA station</option>
+                        <option value="6">CrossPol test</option>
+                        <option value="9">Star hub</option>
+                        <option value="10" selected>MF hub</option>
+                        <option value="11">Outroute</option>
+                        <option value="12">Inroute</option>
+                        <option value="13">MF inroute</option>
+                        <option value="14">Hubless master</option>
+                        <option value="15">DAMA hub</option>
+                        <option value="16">DAMA inroute</option>
+                        <option value="17">Channel simulator</option>
+                        <option value="18">Spectrum Analyzer</option>
+                        <option value="19">Commissioning unit</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Timeout (s) 10-250</td>
+                <td><input name="de" type="text" size="3" maxlen="3" value="40"></td>
+            </tr>
+            <tr>
+                <td>Title</td>
+                <td><input name="ta" type="text" size="10" maxlength="10" value=""></td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <input type="submit" name="tf" value="Apply">
+    <div align="right">
+        To profile
+        <select name="df">
+            <option value="1">1</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+        </select>
+        <input type="submit" name="tb" value="Copy">
+    </div>
+    <div align="left"><a href="/sim/cc3">Back</a></div>
+</form>
+</center>
+</body>
+</html>

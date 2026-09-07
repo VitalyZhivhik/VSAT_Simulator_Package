@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" href="/static/css/ls.css">
+    <title>CEL-AC - TLC</title>
+</head>
+<body>
+<center>
+<h3>Profile 2 (MF hub)</h3>
+<a href="/sim/profiles/mf_hub/basic" class="nav-link">Basic</a> | 
+<a href="/sim/profiles/mf_hub/tdm_rx" class="nav-link">TDM/SCPC RX</a> | 
+<a href="/sim/profiles/mf_hub/tdm_tx" class="nav-link">TDM/SCPC TX</a> | 
+<a href="/sim/profiles/mf_hub/modulator" class="nav-link">Modulator</a> | 
+<a href="/sim/profiles/mf_hub/timing" class="nav-link">Timing</a> | 
+<a href="/sim/profiles/mf_hub/tlc" class="nav-link">TLC</a> | 
+<a href="/sim/profiles/mf_hub/tdm_acm" class="nav-link">TDM ACM</a> 
+<br>
+<a href="/sim/profiles/mf_hub/tdma_rf" class="nav-link">TDMA RF</a> | 
+<a href="/sim/profiles/mf_hub/tdma_prot" class="nav-link">TDMA prot</a> | 
+<a href="/sim/profiles/mf_hub/tdma_bw" class="nav-link">TDMA BW</a> | 
+<a href="/sim/profiles/mf_hub/tdma_acm" class="nav-link">TDMA ACM</a> | 
+<a href="/sim/profiles/mf_hub/roaming" class="nav-link">Roaming</a> 
+
+<h3>TLC settings</h3>
+<form method="get" action="/sim/api/profiles/mf_hub/tlc">
+    <input name="da" type="hidden" value="2">
+    <table>
+        <tbody>
+            <tr>
+                <td>TLC enable</td>
+                <td><input name="db" type="checkbox" value="1"></td>
+            </tr>
+            <tr>
+                <td>Hub ID</td>
+                <td><input name="dc" type="text" size="3" maxlen="3" value="1"></td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <input type="submit" name="tf" value="Apply">
+    <div align="left"><a href="/sim/cc3">Back</a></div>
+</form>
+</center>
+</body>
+</html>

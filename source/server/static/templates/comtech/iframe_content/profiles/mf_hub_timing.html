@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" href="/static/css/ls.css">
+    <title>CEL-AC - Timing</title>
+</head>
+<body>
+<center>
+<h3>Profile 2 (MF hub)</h3>
+<a href="/sim/profiles/mf_hub/basic" class="nav-link">Basic</a> | 
+<a href="/sim/profiles/mf_hub/tdm_rx" class="nav-link">TDM/SCPC RX</a> | 
+<a href="/sim/profiles/mf_hub/tdm_tx" class="nav-link">TDM/SCPC TX</a> | 
+<a href="/sim/profiles/mf_hub/modulator" class="nav-link">Modulator</a> | 
+<a href="/sim/profiles/mf_hub/timing" class="nav-link">Timing</a> | 
+<a href="/sim/profiles/mf_hub/tlc" class="nav-link">TLC</a> | 
+<a href="/sim/profiles/mf_hub/tdm_acm" class="nav-link">TDM ACM</a> 
+<br>
+<a href="/sim/profiles/mf_hub/tdma_rf" class="nav-link">TDMA RF</a> | 
+<a href="/sim/profiles/mf_hub/tdma_prot" class="nav-link">TDMA prot</a> | 
+<a href="/sim/profiles/mf_hub/tdma_bw" class="nav-link">TDMA BW</a> | 
+<a href="/sim/profiles/mf_hub/tdma_acm" class="nav-link">TDMA ACM</a> | 
+<a href="/sim/profiles/mf_hub/roaming" class="nav-link">Roaming</a> 
+
+<h3>TDMA timing</h3>
+<form method="get" action="/sim/api/profiles/mf_hub/timing">
+    <input name="da" type="hidden" value="2">
+    <table>
+        <tbody>
+            <tr>
+                <td>Timing mode</td>
+                <td>
+                    <select name="de">
+                        <option value="0">Location</option>
+                        <option value="1">Value</option>
+                        <option value="2" selected>Measure</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Satellite longitude</td>
+                <td>
+                    <input name="db" type="text" size="2" maxlen="2" value="0"> deg 
+                    <input name="dc" type="text" size="2" maxlen="2" value="0"> min 
+                    <select name="dd">
+                        <option value="0" selected>E</option>
+                        <option value="1">W</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Value (0 - 150000)</td>
+                <td><input name="df" type="text" size="4" maxlen="4" value="0"> us</td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <input type="submit" name="tf" value="Apply">
+    <div align="left"><a href="/sim/cc3">Back</a></div>
+</form>
+</center>
+</body>
+</html>
