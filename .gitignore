@@ -1,7 +1,13 @@
 ```
-# Database files
-*.db-shm
-*.db-wal
+# Compiled and build artifacts
+*.pyc
+__pycache__/
+
+# Dependencies
+.venv/
+venv/
+node_modules/
+pip-tools/
 
 # Logs and temp files
 *.log
@@ -11,26 +17,23 @@
 # Environment
 .env
 .env.local
-.env.*
+*.env.*
 
 # Editors
 .vscode/
 .idea/
 
-# Dependencies
-node_modules/
-.venv/
-venv/
-__pycache__/
+# OS
+.DS_Store
+Thumbs.db
 
-# Build artifacts
+# Coverage
+.coverage
+coverage/
+htmlcov/
+
+# Distribution / packaging
 dist/
 build/
-target/
-
-# Python specific
-*.pyc
-*.pyo
-*.pyd
-*.py~
+*.egg-info/
 ```

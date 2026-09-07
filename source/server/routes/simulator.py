@@ -388,3 +388,28 @@ async def api_profile_copy(request: Request):
     data = await request.json()
     logger.info(f"Copy profile from {data.get('from')} to {data.get('to')}")
     return {"status": "ok", "copied": data}
+
+# Site Setup pages routes (using original HTML from Resors_Comtech)
+@router.get("/site_setup", response_class=HTMLResponse)
+async def site_setup_main():
+    """Main Site Setup page - using original HTML"""
+    template_path = iframe_dir / "site_setup" / "main.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>Site Setup</h1>")
+
+@router.get("/site_setup/setup_via_script", response_class=HTMLResponse)
+async def site_setup_via_script():
+    """Site Setup via script page - using original HTML"""
+    template_path = iframe_dir / "site_setup" / "setup_via_script.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>Setup via Script</h1>")
+
+# API endpoints for Site Setup
+@router.post("/api/site_setup")
+async def api_site_setup(request: Request):
+    """API endpoint to save site setup settings"""
+    data = await request.json()
+    logger.info(f"Site setup settings: {data}")
+    return {"status": "ok", "saved": data}
