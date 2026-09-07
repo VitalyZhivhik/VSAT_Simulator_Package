@@ -413,3 +413,345 @@ async def api_site_setup(request: Request):
     data = await request.json()
     logger.info(f"Site setup settings: {data}")
     return {"status": "ok", "saved": data}
+
+# System pages routes (using original HTML from Resors_Comtech)
+@router.get("/system/general", response_class=HTMLResponse)
+async def system_general():
+    """System General page - using original HTML"""
+    template_path = iframe_dir / "system" / "general.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>System General</h1>")
+
+@router.get("/system/ethernet", response_class=HTMLResponse)
+async def system_ethernet():
+    """System Ethernet page - using original HTML"""
+    template_path = iframe_dir / "system" / "ethernet.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>System Ethernet</h1>")
+
+@router.get("/system/demodulator", response_class=HTMLResponse)
+async def system_demodulator():
+    """System Demodulator page - using original HTML"""
+    template_path = iframe_dir / "system" / "demodulator.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>System Demodulator</h1>")
+
+@router.get("/system/modulator", response_class=HTMLResponse)
+async def system_modulator():
+    """System Modulator page - using original HTML"""
+    template_path = iframe_dir / "system" / "modulator.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>System Modulator</h1>")
+
+@router.get("/system/interfaces", response_class=HTMLResponse)
+async def system_interfaces():
+    """System Interfaces page - using original HTML"""
+    template_path = iframe_dir / "system" / "interfaces.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>System Interfaces</h1>")
+
+@router.get("/system/time_related", response_class=HTMLResponse)
+async def system_time_related():
+    """System Time-related page - using original HTML"""
+    template_path = iframe_dir / "system" / "time_related.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>System Time-related</h1>")
+
+@router.get("/system/user_access", response_class=HTMLResponse)
+async def system_user_access():
+    """System User Access page - using original HTML"""
+    template_path = iframe_dir / "system" / "user_access.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>System User Access</h1>")
+
+@router.get("/system/save_load", response_class=HTMLResponse)
+async def system_save_load():
+    """System Save/Load page - using original HTML"""
+    template_path = iframe_dir / "system" / "save_load.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>System Save/Load</h1>")
+
+@router.get("/system/flash_boot", response_class=HTMLResponse)
+async def system_flash_boot():
+    """System Flash/Boot page - using original HTML"""
+    template_path = iframe_dir / "system" / "flash_boot.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>System Flash/Boot</h1>")
+
+# Maintenance pages routes (using original HTML from Resors_Comtech)
+@router.get("/maintenance/log", response_class=HTMLResponse)
+async def maintenance_log():
+    """Maintenance Log page - using original HTML"""
+    template_path = iframe_dir / "maintenance" / "log.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>Maintenance Log</h1>")
+
+@router.get("/maintenance/pointing", response_class=HTMLResponse)
+async def maintenance_pointing():
+    """Maintenance Pointing page - using original HTML"""
+    template_path = iframe_dir / "maintenance" / "pointing.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>Maintenance Pointing</h1>")
+
+@router.get("/maintenance/reboot", response_class=HTMLResponse)
+async def maintenance_reboot():
+    """Maintenance Reboot page - using original HTML"""
+    template_path = iframe_dir / "maintenance" / "reboot.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>Maintenance Reboot</h1>")
+
+@router.get("/maintenance/run_script", response_class=HTMLResponse)
+async def maintenance_run_script():
+    """Maintenance Run Script page - using original HTML"""
+    template_path = iframe_dir / "maintenance" / "run_script.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>Maintenance Run Script</h1>")
+
+@router.get("/maintenance/support_info", response_class=HTMLResponse)
+async def maintenance_support_info():
+    """Maintenance Support Info page - using original HTML"""
+    template_path = iframe_dir / "maintenance" / "support_info.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>Maintenance Support Info</h1>")
+
+@router.get("/maintenance/traffic_gen", response_class=HTMLResponse)
+async def maintenance_traffic_gen():
+    """Maintenance Traffic Generator page - using original HTML"""
+    template_path = iframe_dir / "maintenance" / "traffic_gen.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>Maintenance Traffic Gen</h1>")
+
+@router.get("/maintenance/tuning", response_class=HTMLResponse)
+async def maintenance_tuning():
+    """Maintenance Tuning page - using original HTML"""
+    template_path = iframe_dir / "maintenance" / "tuning.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>Maintenance Tuning</h1>")
+
+# Network pages routes (using original HTML from Resors_Comtech)
+@router.get("/network/acm", response_class=HTMLResponse)
+async def network_acm():
+    """Network ACM page - using original HTML"""
+    template_path = iframe_dir / "network" / "acm.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>Network ACM</h1>")
+
+@router.get("/network/beam_switching", response_class=HTMLResponse)
+async def network_beam_switching():
+    """Network Beam Switching page - using original HTML"""
+    template_path = iframe_dir / "network" / "beam_switching.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>Network Beam Switching</h1>")
+
+@router.get("/network/cotm_amip", response_class=HTMLResponse)
+async def network_cotm_amip():
+    """Network COTM/AMIP page - using original HTML"""
+    template_path = iframe_dir / "network" / "cotm_amip.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>Network COTM/AMIP</h1>")
+
+@router.get("/network/mf_tdma", response_class=HTMLResponse)
+async def network_mf_tdma():
+    """Network MF TDMA page - using original HTML"""
+    template_path = iframe_dir / "network" / "mf_tdma.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>Network MF TDMA</h1>")
+
+@router.get("/network/stlc_nms_red", response_class=HTMLResponse)
+async def network_stlc_nms_red():
+    """Network STLC/NMS/Redundancy page - using original HTML"""
+    template_path = iframe_dir / "network" / "stlc_nms_red.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>Network STLC/NMS/Red</h1>")
+
+@router.get("/network/security", response_class=HTMLResponse)
+async def network_security():
+    """Network Security page - using original HTML"""
+    template_path = iframe_dir / "network" / "security.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>Network Security</h1>")
+
+@router.get("/network/stations", response_class=HTMLResponse)
+async def network_stations():
+    """Network Stations page - using original HTML"""
+    template_path = iframe_dir / "network" / "stations.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>Network Stations</h1>")
+
+# IP Routing pages routes (using original HTML from Resors_Comtech)
+@router.get("/ip_routing/static", response_class=HTMLResponse)
+async def ip_routing_static():
+    """IP Routing Static page - using original HTML"""
+    template_path = iframe_dir / "ip_routing" / "static.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>IP Routing Static</h1>")
+
+@router.get("/ip_routing/dynamic", response_class=HTMLResponse)
+async def ip_routing_dynamic():
+    """IP Routing Dynamic page - using original HTML"""
+    template_path = iframe_dir / "ip_routing" / "dynamic.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>IP Routing Dynamic</h1>")
+
+# QoS pages routes (using original HTML from Resors_Comtech)
+@router.get("/qos/policies", response_class=HTMLResponse)
+async def qos_policies():
+    """QoS Policies page - using original HTML"""
+    template_path = iframe_dir / "qos" / "policies.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>QoS Policies</h1>")
+
+@router.get("/qos/real_time", response_class=HTMLResponse)
+async def qos_real_time():
+    """QoS Real-time page - using original HTML"""
+    template_path = iframe_dir / "qos" / "real_time.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>QoS Real-time</h1>")
+
+@router.get("/qos/service_monitoring", response_class=HTMLResponse)
+async def qos_service_monitoring():
+    """QoS Service Monitoring page - using original HTML"""
+    template_path = iframe_dir / "qos" / "service_monitoring.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>QoS Service Monitoring</h1>")
+
+@router.get("/qos/shapers", response_class=HTMLResponse)
+async def qos_shapers():
+    """QoS Shapers page - using original HTML"""
+    template_path = iframe_dir / "qos" / "shapers.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>QoS Shapers</h1>")
+
+# IP Protocols pages routes (using original HTML from Resors_Comtech)
+@router.get("/ip_protocols/arp", response_class=HTMLResponse)
+async def ip_protocols_arp():
+    """IP Protocols ARP page - using original HTML"""
+    template_path = iframe_dir / "ip_protocols" / "arp.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>IP Protocols ARP</h1>")
+
+@router.get("/ip_protocols/acceleration", response_class=HTMLResponse)
+async def ip_protocols_acceleration():
+    """IP Protocols Acceleration page - using original HTML"""
+    template_path = iframe_dir / "ip_protocols" / "acceleration.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>IP Protocols Acceleration</h1>")
+
+@router.get("/ip_protocols/dhcp", response_class=HTMLResponse)
+async def ip_protocols_dhcp():
+    """IP Protocols DHCP page - using original HTML"""
+    template_path = iframe_dir / "ip_protocols" / "dhcp.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>IP Protocols DHCP</h1>")
+
+@router.get("/ip_protocols/dns", response_class=HTMLResponse)
+async def ip_protocols_dns():
+    """IP Protocols DNS page - using original HTML"""
+    template_path = iframe_dir / "ip_protocols" / "dns.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>IP Protocols DNS</h1>")
+
+@router.get("/ip_protocols/gtp", response_class=HTMLResponse)
+async def ip_protocols_gtp():
+    """IP Protocols GTP page - using original HTML"""
+    template_path = iframe_dir / "ip_protocols" / "gtp.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>IP Protocols GTP</h1>")
+
+@router.get("/ip_protocols/multicast", response_class=HTMLResponse)
+async def ip_protocols_multicast():
+    """IP Protocols Multicast page - using original HTML"""
+    template_path = iframe_dir / "ip_protocols" / "multicast.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>IP Protocols Multicast</h1>")
+
+@router.get("/ip_protocols/nat", response_class=HTMLResponse)
+async def ip_protocols_nat():
+    """IP Protocols NAT page - using original HTML"""
+    template_path = iframe_dir / "ip_protocols" / "nat.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>IP Protocols NAT</h1>")
+
+@router.get("/ip_protocols/other_settings", response_class=HTMLResponse)
+async def ip_protocols_other_settings():
+    """IP Protocols Other Settings page - using original HTML"""
+    template_path = iframe_dir / "ip_protocols" / "other_settings.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>IP Protocols Other Settings</h1>")
+
+@router.get("/ip_protocols/ripv2", response_class=HTMLResponse)
+async def ip_protocols_ripv2():
+    """IP Protocols RIPv2 page - using original HTML"""
+    template_path = iframe_dir / "ip_protocols" / "ripv2.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>IP Protocols RIPv2</h1>")
+
+@router.get("/ip_protocols/rtp", response_class=HTMLResponse)
+async def ip_protocols_rtp():
+    """IP Protocols RTP page - using original HTML"""
+    template_path = iframe_dir / "ip_protocols" / "rtp.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>IP Protocols RTP</h1>")
+
+@router.get("/ip_protocols/snmp", response_class=HTMLResponse)
+async def ip_protocols_snmp():
+    """IP Protocols SNMP page - using original HTML"""
+    template_path = iframe_dir / "ip_protocols" / "snmp.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>IP Protocols SNMP</h1>")
+
+@router.get("/ip_protocols/sntp", response_class=HTMLResponse)
+async def ip_protocols_sntp():
+    """IP Protocols SNTP page - using original HTML"""
+    template_path = iframe_dir / "ip_protocols" / "sntp.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>IP Protocols SNTP</h1>")
+
+@router.get("/ip_protocols/tftp", response_class=HTMLResponse)
+async def ip_protocols_tftp():
+    """IP Protocols TFTP page - using original HTML"""
+    template_path = iframe_dir / "ip_protocols" / "tftp.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>IP Protocols TFTP</h1>")
