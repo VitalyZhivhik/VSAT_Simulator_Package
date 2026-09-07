@@ -194,107 +194,107 @@ async def profile_status():
     logger.info("Profile status refresh requested")
     return {"status": "ok"}
 
-# Profile pages routes - MF Hub
+# Profile pages routes - MF Hub (using original HTML from Resors_Comtech)
 @router.get("/profiles/mf_hub", response_class=HTMLResponse)
 async def profile_mf_hub():
-    """MF Hub profile selection page"""
-    template_path = iframe_dir / "profiles" / "mf_hub_select.html"
+    """MF Hub profile selection page - using original HTML"""
+    template_path = iframe_dir / "profiles" / "mf_hub_select_original.html"
     if template_path.exists():
         return FileResponse(str(template_path))
     return HTMLResponse("<h1>MF Hub Profile Selection</h1>")
 
 @router.get("/profiles/mf_hub/basic", response_class=HTMLResponse)
 async def profile_mf_hub_basic():
-    """MF Hub Basic profile settings page"""
-    template_path = iframe_dir / "profiles" / "mf_hub_basic_content.html"
+    """MF Hub Basic profile settings page - using original HTML content"""
+    template_path = iframe_dir / "profiles" / "mf_hub_originals" / "Basic_content.html"
     if template_path.exists():
         return FileResponse(str(template_path))
     return HTMLResponse("<h1>MF Hub Basic Settings</h1>")
 
 @router.get("/profiles/mf_hub/tdm_rx", response_class=HTMLResponse)
 async def profile_mf_hub_tdm_rx():
-    """MF Hub TDM/SCPC RX profile settings page"""
-    template_path = iframe_dir / "profiles" / "mf_hub_originals" / "TDM_SCPC RX_content.html"
+    """MF Hub TDM/SCPC RX profile settings page - using original HTML"""
+    template_path = iframe_dir / "profiles" / "mf_hub_tdm_rx_full.html"
     if template_path.exists():
         return FileResponse(str(template_path))
     return HTMLResponse("<h1>MF Hub TDM RX Settings</h1>")
 
 @router.get("/profiles/mf_hub/tdm_tx", response_class=HTMLResponse)
 async def profile_mf_hub_tdm_tx():
-    """MF Hub TDM/SCPC TX profile settings page"""
-    template_path = iframe_dir / "profiles" / "mf_hub_originals" / "TDM_SCPC TX_content.html"
+    """MF Hub TDM/SCPC TX profile settings page - using original HTML"""
+    template_path = iframe_dir / "profiles" / "mf_hub_tdm_tx_full.html"
     if template_path.exists():
         return FileResponse(str(template_path))
     return HTMLResponse("<h1>MF Hub TDM TX Settings</h1>")
 
 @router.get("/profiles/mf_hub/modulator", response_class=HTMLResponse)
 async def profile_mf_hub_modulator():
-    """MF Hub Modulator profile settings page"""
-    template_path = iframe_dir / "profiles" / "mf_hub_originals" / "Modulator_content.html"
+    """MF Hub Modulator profile settings page - using original HTML"""
+    template_path = iframe_dir / "profiles" / "mf_hub_modulator_full.html"
     if template_path.exists():
         return FileResponse(str(template_path))
     return HTMLResponse("<h1>MF Hub Modulator Settings</h1>")
 
 @router.get("/profiles/mf_hub/timing", response_class=HTMLResponse)
 async def profile_mf_hub_timing():
-    """MF Hub Timing profile settings page"""
-    template_path = iframe_dir / "profiles" / "mf_hub_originals" / "Timing_content.html"
+    """MF Hub Timing profile settings page - using original HTML"""
+    template_path = iframe_dir / "profiles" / "mf_hub_timing_full.html"
     if template_path.exists():
         return FileResponse(str(template_path))
     return HTMLResponse("<h1>MF Hub Timing Settings</h1>")
 
 @router.get("/profiles/mf_hub/tlc", response_class=HTMLResponse)
 async def profile_mf_hub_tlc():
-    """MF Hub TLC profile settings page"""
-    template_path = iframe_dir / "profiles" / "mf_hub_originals" / "TLC_content.html"
+    """MF Hub TLC profile settings page - using original HTML"""
+    template_path = iframe_dir / "profiles" / "mf_hub_tlc_full.html"
     if template_path.exists():
         return FileResponse(str(template_path))
     return HTMLResponse("<h1>MF Hub TLC Settings</h1>")
 
 @router.get("/profiles/mf_hub/tdm_acm", response_class=HTMLResponse)
 async def profile_mf_hub_tdm_acm():
-    """MF Hub TDM ACM profile settings page"""
-    template_path = iframe_dir / "profiles" / "mf_hub_originals" / "TDM ACM_content.html"
+    """MF Hub TDM ACM profile settings page - using original HTML"""
+    template_path = iframe_dir / "profiles" / "mf_hub_tdm_acm_full.html"
     if template_path.exists():
         return FileResponse(str(template_path))
     return HTMLResponse("<h1>MF Hub TDM ACM Settings</h1>")
 
 @router.get("/profiles/mf_hub/tdma_rf", response_class=HTMLResponse)
 async def profile_mf_hub_tdma_rf():
-    """MF Hub TDMA RF profile settings page"""
-    template_path = iframe_dir / "profiles" / "mf_hub_originals" / "TDMA RF_content.html"
+    """MF Hub TDMA RF profile settings page - using original HTML"""
+    template_path = iframe_dir / "profiles" / "mf_hub_tdma_rf_full.html"
     if template_path.exists():
         return FileResponse(str(template_path))
     return HTMLResponse("<h1>MF Hub TDMA RF Settings</h1>")
 
 @router.get("/profiles/mf_hub/tdma_prot", response_class=HTMLResponse)
 async def profile_mf_hub_tdma_prot():
-    """MF Hub TDMA Protocol profile settings page"""
-    template_path = iframe_dir / "profiles" / "mf_hub_originals" / "TDMA prot_content.html"
+    """MF Hub TDMA Protocol profile settings page - using original HTML"""
+    template_path = iframe_dir / "profiles" / "mf_hub_tdma_prot_full.html"
     if template_path.exists():
         return FileResponse(str(template_path))
     return HTMLResponse("<h1>MF Hub TDMA Protocol Settings</h1>")
 
 @router.get("/profiles/mf_hub/tdma_bw", response_class=HTMLResponse)
 async def profile_mf_hub_tdma_bw():
-    """MF Hub TDMA Bandwidth profile settings page"""
-    template_path = iframe_dir / "profiles" / "mf_hub_originals" / "TDMA BW_content.html"
+    """MF Hub TDMA Bandwidth profile settings page - using original HTML"""
+    template_path = iframe_dir / "profiles" / "mf_hub_tdma_bw_full.html"
     if template_path.exists():
         return FileResponse(str(template_path))
     return HTMLResponse("<h1>MF Hub TDMA BW Settings</h1>")
 
 @router.get("/profiles/mf_hub/tdma_acm", response_class=HTMLResponse)
 async def profile_mf_hub_tdma_acm():
-    """MF Hub TDMA ACM profile settings page"""
-    template_path = iframe_dir / "profiles" / "mf_hub_originals" / "TDMA ACM_content.html"
+    """MF Hub TDMA ACM profile settings page - using original HTML"""
+    template_path = iframe_dir / "profiles" / "mf_hub_tdma_acm_full.html"
     if template_path.exists():
         return FileResponse(str(template_path))
     return HTMLResponse("<h1>MF Hub TDMA ACM Settings</h1>")
 
 @router.get("/profiles/mf_hub/roaming", response_class=HTMLResponse)
 async def profile_mf_hub_roaming():
-    """MF Hub Roaming profile settings page"""
-    template_path = iframe_dir / "profiles" / "mf_hub_originals" / "Roaming_content.html"
+    """MF Hub Roaming profile settings page - using original HTML"""
+    template_path = iframe_dir / "profiles" / "mf_hub_roaming_full.html"
     if template_path.exists():
         return FileResponse(str(template_path))
     return HTMLResponse("<h1>MF Hub Roaming Settings</h1>")
