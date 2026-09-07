@@ -1,394 +1,383 @@
-/* ==========================================================================
-   Comtech CEL-AC 3 — Основной стиль (оригинальный lm.css)
-   ========================================================================== */
-
-   body {
-    font-family: Arial, sans-serif;
-    padding: 0px;
-    margin: 0px;
-    overflow: auto;
+body {
+ font-family:Arial, sans-serif;
+ padding:0px;
+ margin:0px;
+ overflow:auto;
 }
-
 .button:hover,
 a:hover,
 .btn_link:hover,
 .btn_link_yellow:hover,
 .tv a:hover {
-    color: #a3d3f9;
+ color:#a3d3f9;
 }
-
-/* ── Цвета статусных кнопок ── */
-.cw { background: #f0f0f0; }
-.cwd { background: #f0f0f0; }
-.cy { background: #fcb940; }
-.cr { background: #fe5e37; }
-.cg { background: #7dd228; }
-
-.cw a, .cy a, .cr a, .cg a { color: black; }
-.cwd a { color: #888; }
-
+.cw {
+ background:#f0f0f0;
+}
+.cwd {
+ background:#f0f0f0;
+}
+.cy {
+ background:#fcb940;
+}
+.cr {
+ background:#fe5e37;
+}
+.cg {
+ background:#7dd228;
+}
+.cw a,
+.cy a,
+.cr a,
+.cg a {
+ color:black;
+}
+.cwd a {
+ color:#888;
+}
 a {
-    text-decoration: underline;
-    color: #555;
+ text-decoration:underline;
+ color:#555;
 }
 a.nav {
-    padding-right: 5px;
-    padding-left: 5px;
+ padding-right:5px;
+ padding-left:5px;
 }
 a.nav-left {
-    padding-right: 5px;
-    padding-left: 0px;
-    margin-left: 0px;
+ padding-right:5px;
+ padding-left:0px;
+ margin-left:0px;
 }
-
 b {
-    font-weight: 600;
-    color: #333;
+ font-weight:600;
+ color:#333;
 }
-
-.err { background-color: #fe5e37; }
-.warn { background-color: #fcb940; }
-
-/* ── Таблицы ── */
+.err {
+ background-color:#fe5e37;
+}
+.warn {
+ background-color:#fcb940;
+}
 table {
-    margin-bottom: 20px;
-    border-collapse: collapse;
-    border: 0;
-    text-align: center;
-    font-size: 16px;
-    font-weight: 500;
+ margin-bottom:20px;
+ border-collapse:collapse;
+ border:0;
+ text-align:center;
+ font-size:16px;
+ font-weight:500;
 }
 table td {
-    border: 1px solid #ccc;
-    padding: 5px 10px;
-    color: #555;
+ border:1px solid #ccc;
+ padding:5px 10px 5px 10px ;
+ color:#555;
 }
 table th {
-    border: 1px solid #999;
-    padding: 5px;
-    font-weight: bold;
-    color: #fff;
-    background-color: #777;
+ border:1px solid #999;
+ padding:5px;
+ font-weight:bold;
+ color:#fff;
+ background-color:#777;
 }
 table th a {
-    font-weight: bold;
-    color: #fff;
-    background-color: #777;
+ font-weight:bold;
+ color:#fff;
+ background-color:#777;
 }
-table.thidden { border: none; }
-table.thidden tr { border: none; }
-table.thidden td { border: none; }
-
+table.thidden {
+ border:none
+}
+table.thidden tr {
+ border:none
+}
+table.thidden td {
+ border:none
+}
 pre {
-    text-align: left;
-    font-size: 14px;
+ text-align:left;
+ font-size:14px;
 }
-
 a.button {
-    padding: 10px 30px;
-    color: #333;
+ padding:10px 30px;
+ color:#333;
 }
-
 .nav {
-    margin: 5px;
-    line-height: 30px;
+ margin:5px;
+ line-height:30px;
 }
-
 input:focus {
-    border: 1px solid #ec0b8d;
+ border:1px solid #ec0b8d;
 }
-
-/* ── Основной layout ── */
 #wrap {
-    width: auto;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
+ width:auto;
+ display:flex;
+ flex-direction:column;
+ overflow:hidden;
 }
-
 #header {
-    padding: 0px;
-    height: 70px;
-    background: #369;
-    min-width: 1100px;
-    overflow: hidden;
+ padding:0px;
+ height:70px;
+ background:#369;
+ min-width:1100px;
+ overflow:hidden;
 }
-
 #content {
-    width: auto;
-    height: calc(100vh - 80px);
-    margin-top: 10px;
-    display: flex;
-    flex-direction: row;
-    overflow: hidden;
+ width:auto;
+ height:calc(100vh - 80px);
+ margin-top:10px;
+ display:flex;
+ flex-direction:row;
+ overflow:hidden;
 }
-
 #tree {
-    float: left;
-    width: 230px;
-    background: #369;
-    overflow-y: auto;
+ float:left;
+ width:230px;
+ background:#369;
+ overflow-y:auto;
 }
-
 #main {
-    float: left;
-    width: calc(100vw - 230px);
-    overflow: auto;
-    padding: 10px 20px;
+ float:left;
+ width:calc(100vw - 230px);
+ overflow:auto;
 }
-
-/* ── Header элементы ── */
+iframe {
+ width:920px;
+ height:calc(100vh - 100px);
+ margin:0px;
+}
 .logo {
-    width: 230px;
-    height: 70px;
-    float: left;
-    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxODAiIGhlaWdodD0iNDAiIHZpZXdib3g9IjAgMCAxODAgNDAiPjx0ZXh0IHg9IjAiIHk9IjI4IiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjIiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IndoaXRlIiBsZXR0ZXItc3BhY2luZz0iNCI+Q09NVEVDSCBDRUwtQUMgMzwvdGV4dD48L3N2Zz4=');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: 12px 12px;
-    cursor: pointer;
+ width:230px;
+ height:70px;
+ float:left;
+ background-image:url('pl.png');
+ background-size: contain;
+ background-repeat:no-repeat;
+ background-position:12px 12px;
+ cursor:pointer;
 }
-
 #SysLed {
-    cursor: pointer;
-    margin-top: 27px;
-    width: 10px;
-    height: 10px;
-    border-radius: 5px;
+ cursor:pointer;
+ margin-top:27px;
+ width:10px;
+ height:10px;
+ border-radius:5px
 }
-
-/* ── Статусная панель в хедере ── */
 .status {
-    height: 70px;
-    float: left;
+ height:70px;
+ float:left;
 }
-
 .tb {
-    float: left;
-    line-height: 32px;
-    padding: 5px;
-    color: white;
-    font-size: 16px;
+ float:left;
+ line-height:32px;
+ padding:5px;
+ color:white;
+ font-size:16px;
 }
-
 .tn {
-    float: left;
-    width: 60px;
-    color: #CCC;
-    text-align: left;
+ float:left;
+ width:60px;
+ color:#CCC;
+ text-align:left;
 }
-
 .tv {
-    float: left;
-    color: white;
-    padding-right: 30px;
-    text-align: left;
-    font-weight: 200;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+ float:left;
+ color:white;
+ padding-right:30px;
+ text-align:left;
+ font-weight:200;
+ overflow:hidden;
+ text-overflow:ellipsis;
+ white-space:nowrap;
 }
 .tv a {
-    color: white;
+ color:white;
 }
-
 .ti {
-    float: left;
-    width: 65px;
+ float:left;
+ width:65px;
 }
 .ti div {
-    text-align: center;
-    line-height: 27px;
-    border-radius: 5px;
-    margin: 5px;
-    font-size: 15px;
-    font-weight: 200;
+ text-align:center;
+ line-height:27px;
+ border-radius:5px;
+ margin:5px;
+ font-size:15px;
+ font-weight:200;
 }
 .ti a {
-    text-decoration: none;
+ text-decoration:none;
 }
-
-/* ── Фильтры/ошибки ── */
 .flt {
-    vertical-align: center;
-    float: left;
-    width: 58px;
-    line-height: 29px;
-    text-align: center;
-    margin: 3px;
-    font-size: 17px;
-    border-radius: 5px;
-    background: #369;
+ vertical-align:center;
+ float:left;
+ width:58px;
+ line-height:29px;
+ text-align:center;
+ margin: 3px;
+ font-size:17px;
+ border-radius:5px;
+ background:#369;
 }
 .flt a {
-    color: black;
-    text-decoration: none;
+ color:black;
+ text-decoration:none;
 }
-
-/* ── Дерево навигации ── */
 div.li-selector {
-    margin-left: -12px;
-    margin-right: -12px;
-    padding-left: 12px;
+ margin-left:-12px;
+ margin-right:-12px;
+ padding-left:12px;
 }
 div.li-selector.active {
-    background-color: #2A547E;
+ background-color:#2A547E
 }
-
-ul, #myUL {
-    list-style-type: none;
-    font-size: 18px;
-    line-height: 22px;
+ul,
+#myUL {
+ list-style-type:none;
+ font-size:18px;
+ line-height:22px;
 }
 #myUL {
-    margin: 12px;
-    padding: 0;
+ margin:12px;
+ padding:0;
 }
 ul a {
-    text-decoration: none;
-    color: white;
+ text-decoration:none;
+ color:white;
 }
-
 ul .btn_link {
-    background: none !important;
-    border: none;
-    padding: 0 !important;
-    text-decoration: none;
-    color: white;
-    font-size: inherit;
-    font-family: inherit;
-    cursor: pointer;
+ background:none!important;
+ border:none;
+ padding:0!important;
+ text-decoration:none;
+ color:white;
+ font-size:inherit;
+ font-family:inherit;
+ cursor:pointer;
 }
 ul .btn_link_yellow {
-    background: none !important;
-    border: none;
-    padding: 0 !important;
-    text-decoration: none;
-    color: #fcb940;
-    font-size: inherit;
-    font-family: inherit;
-    cursor: pointer;
+ background:none!important;
+ border:none;
+ padding:0!important;
+ text-decoration:none;
+ color:#fcb940;
+ font-size:inherit;
+ font-family:inherit;
+ cursor:pointer;
 }
-
 .caret {
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+ cursor:pointer;
+ -webkit-user-select:none;
+ -moz-user-select:none;
+ -ms-user-select:none;
+ user-select:none;
 }
 .caret::before {
-    content: '\25B6';
-    color: white;
-    display: inline-block;
-    margin-right: 6px;
+ content:'\25B6';
+ color:white;
+ display:inline-block;
+ margin-right:6px;
 }
 .caret-down::before {
-    -ms-transform: rotate(90deg);
-    -webkit-transform: rotate(90deg);
-    transform: rotate(90deg);
+ -ms-transform:rotate(90deg);
+ -webkit-transform:rotate(90deg);
+ transform:rotate(90deg);
 }
 .nested {
-    display: none;
-    padding-left: 1.8em;
+ display:none;
+ padding-left:1.8em;
 }
-.nested.active {
-    display: block;
+.active {
+ display:block;
 }
-
-/* ── Иконки инструментов ── */
 span {
-    background-repeat: no-repeat;
-    background-position: center;
+ background-repeat:no-repeat;
+ background-position:center
 }
-
 span.st {
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAKElEQVQ4y2NgGAUQ8D/1PwikDj0N//eDICkawGAIaPh/BiY6qmFkAQAhL7xn8BlyzwAAAABJRU5ErkJggg==');
-    font-size: 100%;
+ background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAKElEQVQ4y2NgGAUQ8D/1PwikDj0N//eDICkawGAIaPh/BiY6qmFkAQAhL7xn8BlyzwAAAABJRU5ErkJggg==');
+ font-size:100%
 }
 span.st:hover {
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAf0lEQVRIS2NkoDFgpLH5DKMWEAxhooPo////qUuu/JoFMjFGhy2NkZFxNkHTgQpGLSAYSliDCBje+2E6gWHtCGJTNQ4WX/75H2ZBrC472BGjFqBEFilBBAy6M8D8YQwyABacyIZhjeRRC0ZAEBHM/yQoILo0JcFMFKWjFhAMOQAPvsIZOQkIJwAAAABJRU5ErkJggg==');
+ background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAf0lEQVRIS2NkoDFgpLH5DKMWEAxhooPo////qUuu/JoFMjFGhy2NkZFxNkHTgQpGLSAYSliDCBje+2E6gWHtCGJTNQ4WX/75H2ZBrC472BGjFqBEFilBBAy6M8D8YQwyABacyIZhjeRRC0ZAEBHM/yQoILo0JcFMFKWjFhAMOQAPvsIZOQkIJwAAAABJRU5ErkJggg==');
 }
-span.mi { font-size: 8px; }
-span.stmi { font-size: 100%; }
-
-/* ── Telnet, Save, Clear иконки ── */
+span.mi {
+ font-size:8px
+}
+span.stmi {
+ font-size:100%
+}
 span.telnet {
-    cursor: pointer;
-    display: inline-block;
-    height: 40px;
-    width: 50px;
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAA0UlEQVRIie2UsQ3CMBBF7yMalBnCPJkkK6Qk6WAzejbAMyDKRxMkY5zEsZEo4DdWTnf37uscm/21RkADOPJ1BRq/pwLA1czqwjmdpP2UAwByO8fqN7nNUrWdmuRTgO84kKRYfEkx57MOgCoHlAQYm5+BvhTiN325ZkA3ho459UkJayC5/8FuPO8JuW+K3iJvot7MDmY2SBrGWBfmSTol0XyLQAVcwiXHXrhY/SLgCUmabAYwuwNJtzWAmMIdODOrC98i53+EDtowIaN5W1D/i3oA62b3z4ZQfEsAAAAASUVORK5CYII=');
-    font-size: 100%;
+ cursor:pointer;
+ display:inline-block;
+ height:40px;
+ width:50px;
+ background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAA0UlEQVRIie2UsQ3CMBBF7yMalBnCPJkkK6Qk6WAzejbAMyDKRxMkY5zEsZEo4DdWTnf37uscm/21RkADOPJ1BRq/pwLA1czqwjmdpP2UAwByO8fqN7nNUrWdmuRTgO84kKRYfEkx57MOgCoHlAQYm5+BvhTiN325ZkA3ho459UkJayC5/8FuPO8JuW+K3iJvot7MDmY2SBrGWBfmSTol0XyLQAVcwiXHXrhY/SLgCUmabAYwuwNJtzWAmMIdODOrC98i53+EDtowIaN5W1D/i3oA62b3z4ZQfEsAAAAASUVORK5CYII=');
+ font-size:100%;
 }
 span.logout {
-    cursor: pointer;
-    display: inline-block;
-    height: 40px;
-    width: 50px;
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAAuElEQVRIie2TTQ6CMBSE5xmvIOoCz8NJSPS4SuIeDvK58GmgES0tJCY6m4ZmfvraQfpjCoAK6EhHC1R9TwsCWkll5jk7MzuMTQBAqvMr/SrVLBZZAcARKKYIoq8IODn98gj5qJ8YsAHOLrkC+1kDnF/4BPTWgT6sKZJkZi/3Y9HXf0eLbASStpIapzVvLO7IfOTd3C1atqbOH/xoswfE6Bdv0Tr47iSVOVO4xxPhBHVISDCvM/S/iBu4bji1FVoteQAAAABJRU5ErkJggg==');
-    font-size: 100%;
+ cursor:pointer;
+ display:inline-block;
+ height:40px;
+ width:50px;
+ background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAAuElEQVRIie2TTQ6CMBSE5xmvIOoCz8NJSPS4SuIeDvK58GmgES0tJCY6m4ZmfvraQfpjCoAK6EhHC1R9TwsCWkll5jk7MzuMTQBAqvMr/SrVLBZZAcARKKYIoq8IODn98gj5qJ8YsAHOLrkC+1kDnF/4BPTWgT6sKZJkZi/3Y9HXf0eLbASStpIapzVvLO7IfOTd3C1atqbOH/xoswfE6Bdv0Tr47iSVOVO4xxPhBHVISDCvM/S/iBu4bji1FVoteQAAAABJRU5ErkJggg==');
+ font-size:100%;
 }
 span.saveconf {
-    cursor: pointer;
-    display: inline-block;
-    height: 40px;
-    width: 50px;
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAAxElEQVRIieWUOw7CMBBEx4hr5D45ABLXoQFRc8TkBpCO4lFgicSys+sQKGAay5/Z8X6lnwHQAj1OeO2GkUAnqXETQwj2q6kHVT/zYrO2QbdAZU4OplIaIqDzJtwlkhFw5QTYAff4/Ly6gFvEEsjFJOHvc+fjPkB61XdpPyEnvZByJGlr+l8w5sX3+iBEWATgBAzA8S3lUhUBt3h19XCWhOgiaYjrctT0wRzn40meK9NeUlPrReTZ4DlNawdeB7SVH/p3PACNGZot1fslVQAAAABJRU5ErkJggg==');
-    font-size: 100%;
+ cursor:pointer;
+ display:inline-block;
+ height:40px;
+ width:50px;
+ background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAAxElEQVRIieWUOw7CMBBEx4hr5D45ABLXoQFRc8TkBpCO4lFgicSys+sQKGAay5/Z8X6lnwHQAj1OeO2GkUAnqXETQwj2q6kHVT/zYrO2QbdAZU4OplIaIqDzJtwlkhFw5QTYAff4/Ly6gFvEEsjFJOHvc+fjPkB61XdpPyEnvZByJGlr+l8w5sX3+iBEWATgBAzA8S3lUhUBt3h19XCWhOgiaYjrctT0wRzn40meK9NeUlPrReTZ4DlNawdeB7SVH/p3PACNGZot1fslVQAAAABJRU5ErkJggg==');
+ font-size:100%;
 }
 span.saveconf_active {
-    cursor: pointer;
-    display: inline-block;
-    height: 40px;
-    width: 50px;
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAABEUlEQVRIie2UMU7DQBBF34S1hMQVyF2WBucANFyALrRBogg0iJaU5ACAxAHYVMtZcgW6tTQ0cWTQWp4lCITEr9aev3/27/cY/jqkXaQXPxFhCRxaNro6yjALRttOwr1VvASusx6D/WRWjIYpu8H1FUoyUbiu6niVq/U6KMlEYJ6CzzbodYAxkyb4E+BBYJ5Wfr86jhfd+s4ZuDo+A6dAI8osrfzth7pVqAleM+LSNmmC3wMeRZkBWxff9hW5Oj5l3xcIfGk+fm4OrCdM4ehG0HNVvasmr5dD/GIHgk6BAxGZWvjFDVR1AbwpLCx8c8gtNtcyeDUtfu9nB6yBcW7ABrDuPvQ6UOXsM9kivtn3DzveAQ1dS1OSVV3dAAAAAElFTkSuQmCC');
-    font-size: 100%;
+ cursor:pointer;
+ display:inline-block;
+ height:40px;
+ width:50px;
+ background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAABEUlEQVRIie2UMU7DQBBF34S1hMQVyF2WBucANFyALrRBogg0iJaU5ACAxAHYVMtZcgW6tTQ0cWTQWp4lCITEr9aev3/27/cY/jqkXaQXPxFhCRxaNro6yjALRttOwr1VvASusx6D/WRWjIYpu8H1FUoyUbiu6niVq/U6KMlEYJ6CzzbodYAxkyb4E+BBYJ5Wfr86jhfd+s4ZuDo+A6dAI8osrfzth7pVqAleM+LSNmmC3wMeRZkBWxff9hW5Oj5l3xcIfGk+fm4OrCdM4ehG0HNVvasmr5dD/GIHgk6BAxGZWvjFDVR1AbwpLCx8c8gtNtcyeDUtfu9nB6yBcW7ABrDuPvQ6UOXsM9kivtn3DzveAQ1dS1OSVV3dAAAAAElFTkSuQmCC');
+ font-size:100%;
 }
 span.clearfaults {
-    cursor: pointer;
-    display: inline-block;
-    height: 40px;
-    width: 50px;
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAA0ElEQVRIie2STQrCMBCFJ0Kha4/gD3Wn4Cm8l55ED6B30DvoTvAIuhBRPjeJhLbWmYrSRb9NaDIvb14zIk0Cj0XT+VUzrUFr8AcDYAFciIjOYs7A3OQKTLAztiSY+nXpPiAiq5xGZZD59aAIHGqyyqoYYFPjF60tCUbqbqwaIAFuwANIFfUpcPeaJH9elqAvIomIHJ1z108GvubkNT2NQXisfUXXXWAQbYXawkNXGbwmqOTCoYjMou+3k6QyKLlQbVAA2NUY0cDWkqAO32gbyhN47hOd7UZ8ugAAAABJRU5ErkJggg==');
-    font-size: 100%;
+ cursor:pointer;
+ display:inline-block;
+ height:40px;
+ width:50px;
+ background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAA0ElEQVRIie2STQrCMBCFJ0Kha4/gD3Wn4Cm8l55ED6B30DvoTvAIuhBRPjeJhLbWmYrSRb9NaDIvb14zIk0Cj0XT+VUzrUFr8AcDYAFciIjOYs7A3OQKTLAztiSY+nXpPiAiq5xGZZD59aAIHGqyyqoYYFPjF60tCUbqbqwaIAFuwANIFfUpcPeaJH9elqAvIomIHJ1z108GvubkNT2NQXisfUXXXWAQbYXawkNXGbwmqOTCoYjMou+3k6QyKLlQbVAA2NUY0cDWkqAO32gbyhN47hOd7UZ8ugAAAABJRU5ErkJggg==');
+ font-size:100%;
 }
 span.clearfaults_active {
-    cursor: pointer;
-    display: inline-block;
-    height: 40px;
-    width: 50px;
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAABYUlEQVRIie2UMU4CURCGv3nLGhOChd5AJViSYGVMWBvROxiv4AUs8QCegUuwNtDQaYwddCaWhkpMDOzuWKwg2bcsS6KJJkz3Zub9/z9v/jz4SxH4nga+p6vcMb8lZk2wJvi5kEWFSbt+IyJXQHEJxkjh1m10r3MTjO+8qlEe8+uESKW6cdZ5SuYLac1GqcX00iqcdi6zgAPfawEXRqgBFkHqDhSpAIjqYJlygQGAalRJq6dOIBpVEEGhGfheM4tg+jGJSCrBggk4yAJd5Y61ZL2vueGw9A7qOBtSlJPuRyZwx9sMx4yAyNl5K8rhw2S+bk8wLO0BLvC8DBzgq+cFcHnd2k3WLYJQZ2/ZX6i63djWtrc/l+oDhA7WHiwCMXGTYmYOSgJOZFyORM9ndY2dJClOsgimdjPybdEkoBEtKzJ/jq2K7SRryYFf74EcJfM5o1dodI8zJyBFRe5Qewf/Pz4BSKJ0rp9zSxAAAAAASUVORK5CYII=');
-    font-size: 100%;
+ cursor:pointer;
+ display:inline-block;
+ height:40px;
+ width:50px;
+ background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAABYUlEQVRIie2UMU4CURCGv3nLGhOChd5AJViSYGVMWBvROxiv4AUs8QCegUuwNtDQaYwddCaWhkpMDOzuWKwg2bcsS6KJJkz3Zub9/z9v/jz4SxH4nga+p6vcMb8lZk2wJvi5kEWFSbt+IyJXQHEJxkjh1m10r3MTjO+8qlEe8+uESKW6cdZ5SuYLac1GqcX00iqcdi6zgAPfawEXRqgBFkHqDhSpAIjqYJlygQGAalRJq6dOIBpVEEGhGfheM4tg+jGJSCrBggk4yAJd5Y61ZL2vueGw9A7qOBtSlJPuRyZwx9sMx4yAyNl5K8rhw2S+bk8wLO0BLvC8DBzgq+cFcHnd2k3WLYJQZ2/ZX6i63djWtrc/l+oDhA7WHiwCMXGTYmYOSgJOZFyORM9ndY2dJClOsgimdjPybdEkoBEtKzJ/jq2K7SRryYFf74EcJfM5o1dodI8zJyBFRe5Qewf/Pz4BSKJ0rp9zSxAAAAAASUVORK5CYII=');
+ font-size:100%;
 }
-
 span.lock {
-    position: absolute;
-    margin-top: 8px;
-    height: 16px;
-    width: 16px;
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAA6klEQVQ4jaWSPUpDQRRGz9Vop6S0cAM2/nQuIZDWn1I7G3EJ4RGXIja6AHEJQgzExm1IkkZBj808jeG9zAt+MHDnzne+ucUNaqS2gUNA4Cki3uq8VfCVOvVXU/WyKXyqfqk9dSudIvWOmgQM1ZuK/q06aBLwoZ5V9M/V9/l+a8awChTAGnChdue828C6eg0UEfEJEDMBHeABuM8MeQx0IuLxzwTABkBEnCyiVYHN8r6SMe+re4s8tQEJfAaG6u7SAU3VqnuIiJF6kOqXpQNyYFXABEC9y0HA+OeTskiL1AN2MvAr0C8X6d/6Bt/vjE5d/i/LAAAAAElFTkSuQmCC');
-    font-size: 100%;
+ position:absolute;
+ margin-top:8px;
+ height:16px;
+ width:16px;
+ background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAA6klEQVQ4jaWSPUpDQRRGz9Vop6S0cAM2/nQuIZDWn1I7G3EJ4RGXIja6AHEJQgzExm1IkkZBj808jeG9zAt+MHDnzne+ucUNaqS2gUNA4Cki3uq8VfCVOvVXU/WyKXyqfqk9dSudIvWOmgQM1ZuK/q06aBLwoZ5V9M/V9/l+a8awChTAGnChdue828C6eg0UEfEJEDMBHeABuM8MeQx0IuLxzwTABkBEnCyiVYHN8r6SMe+re4s8tQEJfAaG6u7SAU3VqnuIiJF6kOqXpQNyYFXABEC9y0HA+OeTskiL1AN2MvAr0C8X6d/6Bt/vjE5d/i/LAAAAAElFTkSuQmCC');
+ font-size:100%;
 }
-
-/* ── Подсказки ── */
 .tooltip {
-    position: relative;
-    display: inline-block;
+ position:relative;
+ display:inline-block;
 }
 .tooltip .tooltiptext {
-    visibility: hidden;
-    background: transparent;
-    color: #a3d3f9;
-    text-align: center;
-    border-radius: 3px;
-    padding: 5px;
-    top: 30px;
-    left: 8px;
-    position: absolute;
-    font-size: 12px;
-    z-index: 1;
+ visibility:hidden;
+ background:transparent;
+ color:#a3d3f9;
+ text-align:center;
+ border-radius:3px;
+ padding:5px;
+ top:30px;
+ left:8px;
+ position:absolute;
+ font-size:12px;
+ z-index:1;
 }
 .tooltip:hover .tooltiptext {
-    visibility: visible;
+ visibility:visible;
 }

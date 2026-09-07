@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" href="/static/css/ls.css">
+    <title>CEL-AC - Overview</title>
+    <script type="text/javascript">
+        // Auto-refresh every 10 seconds
+        setTimeout(function(){window.location.replace('/sim/ss40')}, 10000);
+    </script>
+</head>
+<body>
+<center>
+    <table width="900">
+        <tbody>
+            <tr>
+                <td><a href="/sim/ss40">Refresh</a></td>
+                <td>SN: <b id="serial_num">20097615</b></td>
+                <td><a href="/sim/cc41">SW:</a> <b id="sw_name">CEL-20X Software</b></td>
+                <td>Ver: <b id="sw_ver">3.8.1.40 (21.02.2023)</b></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <table width="900">
+        <tbody>
+            <tr>
+                <td>CPU load: <b id="cpu_load">22 %</b></td>
+                <td>Buffers: <b id="buffers">2 %</b></td>
+                <td>Temp: <b id="temp">60 C</b></td>
+                <td>Profile: <b id="profile_time">DOWN during +01:18:03       (114 runs)</b></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <table width="900">
+        <tbody>
+            <tr></tr>
+            <th>Interface</th>
+            <th>State</th>
+            <th>Info</th>
+            <th>TX rate (bps)</th>
+            <th>RX rate (bps)</th>
+            <th>RX errors</th>
+        </tr>
+        <tr>
+            <td><a href="/sim/ss34">Ethernet</a></td>
+            <td class="green"><b id="eth_state">Up</b></td>
+            <td>Link: <b id="eth_link">Eth1:100/FD Eth2:No link</b></td>
+            <td><b id="eth_tx">896</b></td>
+            <td><b id="eth_rx">1040</b></td>
+            <td><b id="eth_errors">0</b></td>
+        </tr>
+        <tr>
+            <td><a href="/sim/ss27">Demodulator-2</a></td>
+            <td class="gray"><b id="dem2_state">Disabled</b></td>
+            <td>Lvl: <b id="dem2_lvl">- 8.0 dBm</b></td>
+            <td><b id="dem2_tx">-</b></td>
+            <td><b id="dem2_rx">0</b></td>
+            <td><b id="dem2_errors">0</b></td>
+        </tr>
+        <tr>
+            <td><a href="/sim/ss33">Demodulator-1</a></td>
+            <td class="red"><b id="dem1_state">Down</b></td>
+            <td>Lvl: <b id="dem1_lvl">- 64.6 dBm</b></td>
+            <td><b id="dem1_tx">-</b></td>
+            <td><b id="dem1_rx">0</b></td>
+            <td><b id="dem1_errors">0</b></td>
+        </tr>
+        <tr>
+            <td><a href="/sim/ss32">Modulator</a></td>
+            <td class="red"><b id="mod_state">Down</b></td>
+            <td><a href="/sim/cm3?da=1">Tx Lvl:</a> <b id="mod_lvl">- 5.0 dBm/TLC</b></td>
+            <td><b id="mod_tx">0</b></td>
+            <td><b id="mod_rx">-</b></td>
+            <td><b id="mod_errors">-</b></td>
+        </tr>
+    </tbody>
+    </table>
+    
+    <br>
+    
+    <table width="900">
+        <tbody>
+            <tr>
+                <th colspan="10">Station</th>
+            </tr>
+            <tr>
+                <td>Number</td>
+                <td><b id="st_number">0</b></td>
+                <td>FP lost</td>
+                <td><b id="st_fp_lost">0</b></td>
+                <td>DTTS cor</td>
+                <td><b id="st_dtts">0 us</b></td>
+                <td>Frq cor</td>
+                <td><b id="st_frq">0 Hz</b></td>
+                <td>Lvl cor</td>
+                <td><b id="st_lvl">0.0 dBm</b></td>
+            </tr>
+            <tr>
+                <td>Cur BW</td>
+                <td><b id="st_bw">0 (0 k)</b></td>
+                <td>Sum Rq</td>
+                <td><b id="st_sum_rq">0 (0 k)</b></td>
+                <td>RT rq</td>
+                <td><b id="st_rt_rq">0 (0 k)</b></td>
+                <td><a href="/sim/cc16">Codecs</a></td>
+                <td><b id="st_codecs">0 / 0</b></td>
+                <td>Timeout</td>
+                <td><b id="st_timeout">0</b></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <br>
+    
+    <table width="900"></table>
+</center>
+
+<script>
+// Fetch real-time data from simulator
+setInterval(updateOverview, 2000);
+
+function updateOverview() {
+    fetch('/sim/api/overview_data')
+        .then(response => response.json())
+        .then(data => {
+            if (data.cpu_load !== undefined) document.getElementById('cpu_load').textContent = data.cpu_load + ' %';
+            if (data.buffers !== undefined) document.getElementById('buffers').textContent = data.buffers + ' %';
+            if (data.temp !== undefined) document.getElementById('temp').textContent = data.temp + ' C';
+            
+            if (data.eth_state !== undefined) {
+                document.getElementById('eth_state').textContent = data.eth_state;
+                document.getElementById('eth_state').className = data.eth_state === 'Up' ? 'green' : (data.eth_state === 'Down' ? 'red' : 'gray');
+            }
+            if (data.dem1_state !== undefined) {
+                document.getElementById('dem1_state').textContent = data.dem1_state;
+                document.getElementById('dem1_state').className = data.dem1_state === 'Up' ? 'green' : (data.dem1_state === 'Down' ? 'red' : 'gray');
+            }
+            if (data.dem2_state !== undefined) {
+                document.getElementById('dem2_state').textContent = data.dem2_state;
+                document.getElementById('dem2_state').className = data.dem2_state === 'Up' ? 'green' : (data.dem2_state === 'Down' ? 'red' : 'gray');
+            }
+            if (data.mod_state !== undefined) {
+                document.getElementById('mod_state').textContent = data.mod_state;
+                document.getElementById('mod_state').className = data.mod_state === 'Up' ? 'green' : (data.mod_state === 'Down' ? 'red' : 'gray');
+            }
+        })
+        .catch(error => console.log('Overview update error:', error));
+}
+</script>
+</body>
+</html>
