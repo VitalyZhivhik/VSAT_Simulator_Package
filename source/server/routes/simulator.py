@@ -195,6 +195,11 @@ async def profile_status():
     return {"status": "ok"}
 
 # Profile pages routes - MF Hub (using original HTML from Resors_Comtech)
+@router.get("/cc3", response_class=HTMLResponse)
+async def profile_cc3():
+    """Main Profiles page - redirects to MF Hub selection"""
+    return FileResponse(str(iframe_dir / "profiles" / "mf_hub_select.html"))
+
 @router.get("/profiles/mf_hub", response_class=HTMLResponse)
 async def profile_mf_hub():
     """MF Hub profile selection page - using original HTML"""
