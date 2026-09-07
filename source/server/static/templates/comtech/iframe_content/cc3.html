@@ -4,19 +4,118 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" type="text/css" href="/static/css/ls.css">
-    <title>Profiles</title>
+    <title>Profiles - Basic Settings</title>
 </head>
 <body>
 <center>
-    <h2>Profiles Configuration</h2>
-    <table width="700">
+<h3>Profile <span id="profile_num">2</span> (<span id="profile_name">MF hub</span>)</h3>
+<div class="tabs">
+    <a href="/sim/profiles/basic" class="tab active">Basic</a>
+    <a href="/sim/profiles/tdm_rx" class="tab">TDM/SCPC RX</a>
+    <a href="/sim/profiles/tdm_tx" class="tab">TDM/SCPC TX</a>
+    <a href="/sim/profiles/modulator" class="tab">Modulator</a>
+    <a href="/sim/profiles/timing" class="tab">Timing</a>
+    <a href="/sim/profiles/tlc" class="tab">TLC</a>
+    <a href="/sim/profiles/tdm_acm" class="tab">TDM ACM</a>
+    <br>
+    <a href="/sim/profiles/tdma_rf" class="tab">TDMA RF</a>
+    <a href="/sim/profiles/tdma_prot" class="tab">TDMA prot</a>
+    <a href="/sim/profiles/tdma_bw" class="tab">TDMA BW</a>
+    <a href="/sim/profiles/tdma_acm" class="tab">TDMA ACM</a>
+    <a href="/sim/profiles/roaming" class="tab">Roaming</a>
+</div>
+
+<h3>Basic settings</h3>
+<form id="basicForm">
+    <input name="da" type="hidden" value="2">
+    <table>
         <tbody>
-            <tr><th>Profile #</th><th>Name</th><th>Type</th></tr>
-            <tr><td>1</td><td><b>1-Star station</b></td><td><b>DAMA</b></td></tr>
-            <tr><td>2</td><td><b>MF Hub</b></td><td><b>MF-TDMA</b></td></tr>
+            <tr>
+                <td>Valid</td>
+                <td><input name="db" type="checkbox" value="1"></td>
+            </tr>
+            <tr>
+                <td>Autorun</td>
+                <td><input name="dc" type="checkbox" value="1"></td>
+            </tr>
+            <tr>
+                <td>Mode</td>
+                <td>
+                    <select name="dd">
+                        <option value="0">none</option>
+                        <option value="1">SCPC modem</option>
+                        <option value="2">Star station</option>
+                        <option value="3">Mesh station</option>
+                        <option value="4">Hubless station</option>
+                        <option value="5">DAMA station</option>
+                        <option value="6">CrossPol test</option>
+                        <option value="9">Star hub</option>
+                        <option value="10" selected>MF hub</option>
+                        <option value="11">Outroute</option>
+                        <option value="12">Inroute</option>
+                        <option value="13">MF inroute</option>
+                        <option value="14">Hubless master</option>
+                        <option value="15">DAMA hub</option>
+                        <option value="16">DAMA inroute</option>
+                        <option value="17">Channel simulator</option>
+                        <option value="18">Spectrum Analyzer</option>
+                        <option value="19">Commissioning unit</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Timeout (s) 10-250</td>
+                <td><input name="de" type="text" size="3" maxlen="3" value="40"></td>
+            </tr>
+            <tr>
+                <td>Title</td>
+                <td><input name="ta" type="text" size="10" maxlength="10" value=""></td>
+            </tr>
         </tbody>
     </table>
-    <p><a href="/sim/ss40">Back to Overview</a></p>
+    <br>
+    <input type="button" name="tf" value="Apply" onclick="applySettings()">
+    <div align="right">
+        To profile
+        <select name="df">
+            <option value="1">1</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+        </select>
+        <input type="button" name="tb" value="Copy" onclick="copyToProfile()">
+    </div>
+    <div align="left"><a href="/sim/cc3">Back</a></div>
+</form>
 </center>
+<script>
+function applySettings() {
+    fetch('/api/profiles/basic', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            profile_num: document.querySelector('input[name="da"]').value,
+            valid: document.querySelector('input[name="db"]').checked,
+            autorun: document.querySelector('input[name="dc"]').checked,
+            mode: parseInt(document.querySelector('select[name="dd"]').value),
+            timeout: parseInt(document.querySelector('input[name="de"]').value),
+            title: document.querySelector('input[name="ta"]').value
+        })
+    }).then(r => r.json()).then(d => alert('Settings applied: ' + JSON.stringify(d)));
+}
+function copyToProfile() {
+    let target = document.querySelector('select[name="df"]').value;
+    if(confirm('Copy settings to profile ' + target + '?')) {
+        fetch('/api/profiles/copy', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({from: document.querySelector('input[name="da"]').value, to: target})
+        }).then(r => r.json()).then(d => alert('Copied: ' + JSON.stringify(d)));
+    }
+}
+</script>
 </body>
 </html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" href="/static/css/ls.css">
+    <title>Profiles - TDMA BW</title>
+</head>
+<body>
+<center>
+<h3>Profile <span id="profile_num">2</span> (<span id="profile_name">MF hub</span>)</h3>
+<div class="tabs">
+    <a href="/sim/profiles/basic" class="tab">Basic</a>
+    <a href="/sim/profiles/tdm_rx" class="tab">TDM/SCPC RX</a>
+    <a href="/sim/profiles/tdm_tx" class="tab">TDM/SCPC TX</a>
+    <a href="/sim/profiles/modulator" class="tab">Modulator</a>
+    <a href="/sim/profiles/timing" class="tab">Timing</a>
+    <a href="/sim/profiles/tlc" class="tab">TLC</a>
+    <a href="/sim/profiles/tdm_acm" class="tab">TDM ACM</a>
+    <br>
+    <a href="/sim/profiles/tdma_rf" class="tab">TDMA RF</a>
+    <a href="/sim/profiles/tdma_prot" class="tab">TDMA prot</a>
+    <a href="/sim/profiles/tdma_bw" class="tab active">TDMA BW</a>
+    <a href="/sim/profiles/tdma_acm" class="tab">TDMA ACM</a>
+    <a href="/sim/profiles/roaming" class="tab">Roaming</a>
+</div>
+
+<h3>TDMA Bandwidth settings</h3>
+<form id="tdmaBwForm">
+    <input name="da" type="hidden" value="2">
+    <table>
+        <tbody>
+            <tr>
+                <td>Tx Symbol Rate (ksps)</td>
+                <td><input name="db" type="text" size="6" maxlen="6" value="1000"></td>
+            </tr>
+            <tr>
+                <td>Rx Symbol Rate (ksps)</td>
+                <td><input name="dc" type="text" size="6" maxlen="6" value="1000"></td>
+            </tr>
+            <tr>
+                <td>Bandwidth (kHz)</td>
+                <td><input name="dd" type="text" size="6" maxlen="6" value="1500"></td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <input type="button" name="tf" value="Apply" onclick="applySettings()">
+    <div align="left"><a href="/sim/cc3">Back</a></div>
+</form>
+</center>
+<script>
+function applySettings() {
+    fetch('/api/profiles/tdma_bw', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            profile_num: document.querySelector('input[name="da"]').value,
+            tx_symrate: parseInt(document.querySelector('input[name="db"]').value),
+            rx_symrate: parseInt(document.querySelector('input[name="dc"]').value),
+            bandwidth: parseInt(document.querySelector('input[name="dd"]').value)
+        })
+    }).then(r => r.json()).then(d => alert('TDMA BW settings applied: ' + JSON.stringify(d)));
+}
+</script>
+</body>
+</html>

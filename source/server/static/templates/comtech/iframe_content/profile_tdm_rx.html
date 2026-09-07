@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" href="/static/css/ls.css">
+    <title>Profiles - TDM/SCPC RX</title>
+</head>
+<body>
+<center>
+<h3>Profile <span id="profile_num">2</span> (<span id="profile_name">MF hub</span>)</h3>
+<div class="tabs">
+    <a href="/sim/profiles/basic" class="tab">Basic</a>
+    <a href="/sim/profiles/tdm_rx" class="tab active">TDM/SCPC RX</a>
+    <a href="/sim/profiles/tdm_tx" class="tab">TDM/SCPC TX</a>
+    <a href="/sim/profiles/modulator" class="tab">Modulator</a>
+    <a href="/sim/profiles/timing" class="tab">Timing</a>
+    <a href="/sim/profiles/tlc" class="tab">TLC</a>
+    <a href="/sim/profiles/tdm_acm" class="tab">TDM ACM</a>
+    <br>
+    <a href="/sim/profiles/tdma_rf" class="tab">TDMA RF</a>
+    <a href="/sim/profiles/tdma_prot" class="tab">TDMA prot</a>
+    <a href="/sim/profiles/tdma_bw" class="tab">TDMA BW</a>
+    <a href="/sim/profiles/tdma_acm" class="tab">TDMA ACM</a>
+    <a href="/sim/profiles/roaming" class="tab">Roaming</a>
+</div>
+
+<h3>TDM RX</h3>
+<form id="tdmRxForm">
+    <table>
+        <tbody>
+            <tr>
+                <td>Input gain</td>
+                <td>
+                    <select name="do">
+                        <option value="0" selected>Low</option>
+                        <option value="1">High</option>
+                    </select>
+                </td>
+            </tr>
+            <tr><th colspan="2">Demodulator 1</th></tr>
+            <input name="df" type="hidden" value="1">
+            <tr>
+                <td>Input select</td>
+                <td>
+                    <select name="dj">
+                        <option value="0" selected>RX-1</option>
+                        <option value="1">RX-2</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <input name="da" type="hidden" value="2">
+                <td>Frequency (kHz) 950000-32000000</td>
+                <td><input name="db" type="text" size="8" maxlen="8" value="950000"></td>
+            </tr>
+            <tr>
+                <td>SymRate (kSps) 300-200000</td>
+                <td><input name="dc" type="text" size="5" maxlen="5" value="1000"></td>
+            </tr>
+            <tr>
+                <td>Slice (0-250)</td>
+                <td><input name="dm" type="text" size="3" maxlen="3" value="0"></td>
+            </tr>
+            <tr><td colspan="2" style="border:none;height:1em"></td></tr>
+            <tr><th colspan="2">LNB voltage</th></tr>
+            <tr>
+                <td colspan="2">
+                    <input name="dl" type="radio" value="1">13V 
+                    <input name="dl" type="radio" value="0" checked>18V
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <input type="button" name="tf" value="Apply" onclick="applySettings()">
+    <div align="left"><a href="/sim/cc3">Back</a></div>
+</form>
+</center>
+<script>
+function applySettings() {
+    fetch('/api/profiles/tdm_rx', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            profile_num: document.querySelector('input[name="da"]').value,
+            input_gain: parseInt(document.querySelector('select[name="do"]').value),
+            demod: 1,
+            input_select: parseInt(document.querySelector('select[name="dj"]').value),
+            frequency: parseInt(document.querySelector('input[name="db"]').value),
+            symrate: parseInt(document.querySelector('input[name="dc"]').value),
+            slice: parseInt(document.querySelector('input[name="dm"]').value),
+            lnb_voltage: parseInt(document.querySelector('input[name="dl"]:checked').value)
+        })
+    }).then(r => r.json()).then(d => alert('TDM RX settings applied: ' + JSON.stringify(d)));
+}
+</script>
+</body>
+</html>

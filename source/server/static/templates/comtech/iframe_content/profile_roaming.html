@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" href="/static/css/ls.css">
+    <title>Profiles - Roaming</title>
+</head>
+<body>
+<center>
+<h3>Profile <span id="profile_num">2</span> (<span id="profile_name">MF hub</span>)</h3>
+<div class="tabs">
+    <a href="/sim/profiles/basic" class="tab">Basic</a>
+    <a href="/sim/profiles/tdm_rx" class="tab">TDM/SCPC RX</a>
+    <a href="/sim/profiles/tdm_tx" class="tab">TDM/SCPC TX</a>
+    <a href="/sim/profiles/modulator" class="tab">Modulator</a>
+    <a href="/sim/profiles/timing" class="tab">Timing</a>
+    <a href="/sim/profiles/tlc" class="tab">TLC</a>
+    <a href="/sim/profiles/tdm_acm" class="tab">TDM ACM</a>
+    <br>
+    <a href="/sim/profiles/tdma_rf" class="tab">TDMA RF</a>
+    <a href="/sim/profiles/tdma_prot" class="tab">TDMA prot</a>
+    <a href="/sim/profiles/tdma_bw" class="tab">TDMA BW</a>
+    <a href="/sim/profiles/tdma_acm" class="tab">TDMA ACM</a>
+    <a href="/sim/profiles/roaming" class="tab active">Roaming</a>
+</div>
+
+<h3>Roaming</h3>
+<form id="roamingForm">
+    <input name="da" type="hidden" value="2">
+    <table>
+        <tbody>
+            <tr>
+                <td>Accept roaming stations</td>
+                <td><input name="db" type="checkbox" value="1"></td>
+            </tr>
+            <tr></tr>
+            <tr>
+                <td>Roaming slots</td>
+                <td><input name="dc" type="text" size="2" maxlen="2" value="0"></td>
+            </tr>
+            <tr></tr>
+        </tbody>
+    </table>
+    <br>
+    <input type="button" name="tf" value="Apply" onclick="applySettings()">
+    <div align="left"><a href="/sim/cc3">Back</a></div>
+</form>
+</center>
+<script>
+function applySettings() {
+    fetch('/api/profiles/roaming', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            profile_num: document.querySelector('input[name="da"]').value,
+            accept_roaming: document.querySelector('input[name="db"]').checked,
+            roaming_slots: parseInt(document.querySelector('input[name="dc"]').value)
+        })
+    }).then(r => r.json()).then(d => alert('Roaming settings applied: ' + JSON.stringify(d)));
+}
+</script>
+</body>
+</html>

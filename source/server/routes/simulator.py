@@ -193,3 +193,186 @@ async def profile_status():
     """Profile status refresh"""
     logger.info("Profile status refresh requested")
     return {"status": "ok"}
+
+# Profile pages routes
+@router.get("/profiles/basic", response_class=HTMLResponse)
+async def profile_basic():
+    """Basic profile settings page"""
+    template_path = iframe_dir / "cc3.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>Profile Basic Settings</h1>")
+
+@router.get("/profiles/tdm_rx", response_class=HTMLResponse)
+async def profile_tdm_rx():
+    """TDM/SCPC RX profile settings page"""
+    template_path = iframe_dir / "profile_tdm_rx.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>TDM RX Settings</h1>")
+
+@router.get("/profiles/tdm_tx", response_class=HTMLResponse)
+async def profile_tdm_tx():
+    """TDM/SCPC TX profile settings page"""
+    template_path = iframe_dir / "profile_tdm_tx.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>TDM TX Settings</h1>")
+
+@router.get("/profiles/modulator", response_class=HTMLResponse)
+async def profile_modulator():
+    """Modulator profile settings page"""
+    # Reuse tdm_tx as modulator
+    template_path = iframe_dir / "profile_tdm_tx.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>Modulator Settings</h1>")
+
+@router.get("/profiles/timing", response_class=HTMLResponse)
+async def profile_timing():
+    """Timing profile settings page"""
+    template_path = iframe_dir / "profile_timing.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>Timing Settings</h1>")
+
+@router.get("/profiles/tlc", response_class=HTMLResponse)
+async def profile_tlc():
+    """TLC profile settings page"""
+    template_path = iframe_dir / "profile_tlc.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>TLC Settings</h1>")
+
+@router.get("/profiles/tdm_acm", response_class=HTMLResponse)
+async def profile_tdm_acm():
+    """TDM ACM profile settings page"""
+    template_path = iframe_dir / "profile_tdm_acm.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>TDM ACM Settings</h1>")
+
+@router.get("/profiles/tdma_rf", response_class=HTMLResponse)
+async def profile_tdma_rf():
+    """TDMA RF profile settings page"""
+    template_path = iframe_dir / "profile_tdma_rf.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>TDMA RF Settings</h1>")
+
+@router.get("/profiles/tdma_prot", response_class=HTMLResponse)
+async def profile_tdma_prot():
+    """TDMA Protocol profile settings page"""
+    template_path = iframe_dir / "profile_tdma_prot.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>TDMA Protocol Settings</h1>")
+
+@router.get("/profiles/tdma_bw", response_class=HTMLResponse)
+async def profile_tdma_bw():
+    """TDMA Bandwidth profile settings page"""
+    template_path = iframe_dir / "profile_tdma_bw.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>TDMA BW Settings</h1>")
+
+@router.get("/profiles/tdma_acm", response_class=HTMLResponse)
+async def profile_tdma_acm():
+    """TDMA ACM profile settings page"""
+    template_path = iframe_dir / "profile_tdma_acm.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>TDMA ACM Settings</h1>")
+
+@router.get("/profiles/roaming", response_class=HTMLResponse)
+async def profile_roaming():
+    """Roaming profile settings page"""
+    template_path = iframe_dir / "profile_roaming.html"
+    if template_path.exists():
+        return FileResponse(str(template_path))
+    return HTMLResponse("<h1>Roaming Settings</h1>")
+
+# API endpoints for profile settings
+@router.post("/api/profiles/basic")
+async def api_profile_basic(request: Request):
+    """API endpoint to save basic profile settings"""
+    data = await request.json()
+    logger.info(f"Basic profile settings: {data}")
+    return {"status": "ok", "saved": data}
+
+@router.post("/api/profiles/tdm_rx")
+async def api_profile_tdm_rx(request: Request):
+    """API endpoint to save TDM RX settings"""
+    data = await request.json()
+    logger.info(f"TDM RX settings: {data}")
+    return {"status": "ok", "saved": data}
+
+@router.post("/api/profiles/tdm_tx")
+async def api_profile_tdm_tx(request: Request):
+    """API endpoint to save TDM TX settings"""
+    data = await request.json()
+    logger.info(f"TDM TX settings: {data}")
+    return {"status": "ok", "saved": data}
+
+@router.post("/api/profiles/timing")
+async def api_profile_timing(request: Request):
+    """API endpoint to save timing settings"""
+    data = await request.json()
+    logger.info(f"Timing settings: {data}")
+    return {"status": "ok", "saved": data}
+
+@router.post("/api/profiles/tlc")
+async def api_profile_tlc(request: Request):
+    """API endpoint to save TLC settings"""
+    data = await request.json()
+    logger.info(f"TLC settings: {data}")
+    return {"status": "ok", "saved": data}
+
+@router.post("/api/profiles/tdm_acm")
+async def api_profile_tdm_acm(request: Request):
+    """API endpoint to save TDM ACM settings"""
+    data = await request.json()
+    logger.info(f"TDM ACM settings: {data}")
+    return {"status": "ok", "saved": data}
+
+@router.post("/api/profiles/tdma_rf")
+async def api_profile_tdma_rf(request: Request):
+    """API endpoint to save TDMA RF settings"""
+    data = await request.json()
+    logger.info(f"TDMA RF settings: {data}")
+    return {"status": "ok", "saved": data}
+
+@router.post("/api/profiles/tdma_prot")
+async def api_profile_tdma_prot(request: Request):
+    """API endpoint to save TDMA protocol settings"""
+    data = await request.json()
+    logger.info(f"TDMA Protocol settings: {data}")
+    return {"status": "ok", "saved": data}
+
+@router.post("/api/profiles/tdma_bw")
+async def api_profile_tdma_bw(request: Request):
+    """API endpoint to save TDMA bandwidth settings"""
+    data = await request.json()
+    logger.info(f"TDMA BW settings: {data}")
+    return {"status": "ok", "saved": data}
+
+@router.post("/api/profiles/tdma_acm")
+async def api_profile_tdma_acm(request: Request):
+    """API endpoint to save TDMA ACM settings"""
+    data = await request.json()
+    logger.info(f"TDMA ACM settings: {data}")
+    return {"status": "ok", "saved": data}
+
+@router.post("/api/profiles/roaming")
+async def api_profile_roaming(request: Request):
+    """API endpoint to save roaming settings"""
+    data = await request.json()
+    logger.info(f"Roaming settings: {data}")
+    return {"status": "ok", "saved": data}
+
+@router.post("/api/profiles/copy")
+async def api_profile_copy(request: Request):
+    """API endpoint to copy profile settings"""
+    data = await request.json()
+    logger.info(f"Copy profile from {data.get('from')} to {data.get('to')}")
+    return {"status": "ok", "copied": data}

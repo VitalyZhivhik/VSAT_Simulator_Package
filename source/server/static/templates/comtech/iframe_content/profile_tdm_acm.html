@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" href="/static/css/ls.css">
+    <title>Profiles - TDM ACM</title>
+</head>
+<body>
+<center>
+<h3>Profile <span id="profile_num">2</span> (<span id="profile_name">MF hub</span>)</h3>
+<div class="tabs">
+    <a href="/sim/profiles/basic" class="tab">Basic</a>
+    <a href="/sim/profiles/tdm_rx" class="tab">TDM/SCPC RX</a>
+    <a href="/sim/profiles/tdm_tx" class="tab">TDM/SCPC TX</a>
+    <a href="/sim/profiles/modulator" class="tab">Modulator</a>
+    <a href="/sim/profiles/timing" class="tab">Timing</a>
+    <a href="/sim/profiles/tlc" class="tab">TLC</a>
+    <a href="/sim/profiles/tdm_acm" class="tab active">TDM ACM</a>
+    <br>
+    <a href="/sim/profiles/tdma_rf" class="tab">TDMA RF</a>
+    <a href="/sim/profiles/tdma_prot" class="tab">TDMA prot</a>
+    <a href="/sim/profiles/tdma_bw" class="tab">TDMA BW</a>
+    <a href="/sim/profiles/tdma_acm" class="tab">TDMA ACM</a>
+    <a href="/sim/profiles/roaming" class="tab">Roaming</a>
+</div>
+
+<h3>TDM ACM settings</h3>
+<form id="tdmAcmForm">
+    <input name="da" type="hidden" value="2">
+    <table>
+        <tbody>
+            <tr>
+                <td>ACM enable</td>
+                <td><input name="db" type="checkbox" value="1"></td>
+            </tr>
+            <tr>
+                <td>MODCOD2</td>
+                <td>
+                    <select name="dg">
+                        <option value="4">SF QPSK 1/2</option>
+                        <option value="5">SF QPSK 3/5</option>
+                        <option value="6">SF QPSK 2/3</option>
+                        <option value="7">SF QPSK 3/4</option>
+                        <option value="9">SF QPSK 5/6</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>MODCOD3</td>
+                <td>
+                    <select name="dh">
+                        <option value="4">SF QPSK 1/2</option>
+                        <option value="5">SF QPSK 3/5</option>
+                        <option value="6">SF QPSK 2/3</option>
+                        <option value="7">SF QPSK 3/4</option>
+                        <option value="9">SF QPSK 5/6</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>C/N threshold (dB) 0.0-5.9</td>
+                <td>
+                    <input name="dj" type="text" size="1" maxlen="1" value="1">.
+                    <input name="dk" type="text" size="1" maxlen="1" value="0">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <input type="button" name="tf" value="Apply" onclick="applySettings()">
+    <div align="left"><a href="/sim/cc3">Back</a></div>
+</form>
+</center>
+<script>
+function applySettings() {
+    let whole = parseInt(document.querySelector('input[name="dj"]').value);
+    let frac = parseInt(document.querySelector('input[name="dk"]').value);
+    fetch('/api/profiles/tdm_acm', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            profile_num: document.querySelector('input[name="da"]').value,
+            acm_enable: document.querySelector('input[name="db"]').checked,
+            modcod2: parseInt(document.querySelector('select[name="dg"]').value),
+            modcod3: parseInt(document.querySelector('select[name="dh"]').value),
+            cn_threshold: whole + frac/10.0
+        })
+    }).then(r => r.json()).then(d => alert('TDM ACM settings applied: ' + JSON.stringify(d)));
+}
+</script>
+</body>
+</html>

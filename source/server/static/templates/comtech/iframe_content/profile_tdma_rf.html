@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" href="/static/css/ls.css">
+    <title>Profiles - TDMA RF</title>
+</head>
+<body>
+<center>
+<h3>Profile <span id="profile_num">2</span> (<span id="profile_name">MF hub</span>)</h3>
+<div class="tabs">
+    <a href="/sim/profiles/basic" class="tab">Basic</a>
+    <a href="/sim/profiles/tdm_rx" class="tab">TDM/SCPC RX</a>
+    <a href="/sim/profiles/tdm_tx" class="tab">TDM/SCPC TX</a>
+    <a href="/sim/profiles/modulator" class="tab">Modulator</a>
+    <a href="/sim/profiles/timing" class="tab">Timing</a>
+    <a href="/sim/profiles/tlc" class="tab">TLC</a>
+    <a href="/sim/profiles/tdm_acm" class="tab">TDM ACM</a>
+    <br>
+    <a href="/sim/profiles/tdma_rf" class="tab active">TDMA RF</a>
+    <a href="/sim/profiles/tdma_prot" class="tab">TDMA prot</a>
+    <a href="/sim/profiles/tdma_bw" class="tab">TDMA BW</a>
+    <a href="/sim/profiles/tdma_acm" class="tab">TDMA ACM</a>
+    <a href="/sim/profiles/roaming" class="tab">Roaming</a>
+</div>
+
+<h3>TDMA RF settings</h3>
+<form id="tdmaRfForm">
+    <input name="da" type="hidden" value="2">
+    <table>
+        <tbody>
+            <tr>
+                <td>TX Frequency (kHz)</td>
+                <td><input name="db" type="text" size="8" maxlen="8" value="14000000"></td>
+            </tr>
+            <tr>
+                <td>RX Frequency (kHz)</td>
+                <td><input name="dc" type="text" size="8" maxlen="8" value="12000000"></td>
+            </tr>
+            <tr>
+                <td>Polarization</td>
+                <td>
+                    <select name="dd">
+                        <option value="0">Linear H</option>
+                        <option value="1">Linear V</option>
+                        <option value="2">Circular L</option>
+                        <option value="3">Circular R</option>
+                    </select>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <input type="button" name="tf" value="Apply" onclick="applySettings()">
+    <div align="left"><a href="/sim/cc3">Back</a></div>
+</form>
+</center>
+<script>
+function applySettings() {
+    fetch('/api/profiles/tdma_rf', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            profile_num: document.querySelector('input[name="da"]').value,
+            tx_freq: parseInt(document.querySelector('input[name="db"]').value),
+            rx_freq: parseInt(document.querySelector('input[name="dc"]').value),
+            polarization: parseInt(document.querySelector('select[name="dd"]').value)
+        })
+    }).then(r => r.json()).then(d => alert('TDMA RF settings applied: ' + JSON.stringify(d)));
+}
+</script>
+</body>
+</html>
