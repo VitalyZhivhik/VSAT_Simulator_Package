@@ -14,7 +14,7 @@ from fastapi.responses import FileResponse, HTMLResponse
 
 from server.config import load_config
 from server.database import get_db, get_setting, close_db
-from server.routes import auth, session, console, admin, websocket
+from server.routes import auth, session, console, admin, websocket, simulator
 
 logger = logging.getLogger("vsat")
 
@@ -96,6 +96,7 @@ app.include_router(session.router, prefix="/api/session", tags=["session"])
 app.include_router(console.router, prefix="/api/session", tags=["console"])
 app.include_router(admin.router, prefix="/api/admin", tags=["admin"])
 app.include_router(websocket.router, tags=["websocket"])
+app.include_router(simulator.router)
 
 
 templates_dir = Path(__file__).parent / "static" / "templates"

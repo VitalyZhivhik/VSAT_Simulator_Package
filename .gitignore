@@ -1,35 +1,40 @@
-exe
-\exe
-\.venv
-\venv
-\sixth
-\.sixth
-\source\logs
-\source\server\__pycache__
-\source\routes\__pycache__
-\VSAT_Simulator_Package\source\server\routes\__pycache__
-VSAT_Simulator_Package\source\server\__pycache__
-VSAT_Simulator_Package\source\logs
-VSAT_Simulator_Package\source\data
-source/data/vsat.db-shm
-.gitignore
-.gitignore
-source/server/__pycache__/database.cpython-311.pyc
-source/server/__pycache__/main.cpython-311.pyc
-.gitignore
-source/server/__pycache__/ping_simulator.cpython-311.pyc
-source/server/__pycache__/status_simulator.cpython-311.pyc
-.gitignore
-source/server/__pycache__/validation.cpython-311.pyc
-source/server/routes/__pycache__/__init__.cpython-311.pyc
-.gitignore
-source/server/routes/__pycache__/auth.cpython-311.pyc
-source/server/routes/__pycache__/console.cpython-311.pyc
-.gitignore
-source/server/routes/__pycache__/websocket.cpython-311.pyc
-source/data/vsat.db-wal
-source/logs/vsat_server.log
-source/data/vsat.db-wal
-source/data/vsat.db
-.gitignore
-source/server/__pycache__/status_simulator.cpython-311.pyc
+```
+# Compiled and build artifacts
+*.pyc
+__pycache__/
+*.o
+*.obj
+*.out
+dist/
+build/
+target/
+
+# Dependencies
+.venv/
+venv/
+node_modules/
+.mypy_cache/
+.pytest_cache/
+.coverage
+coverage/
+htmlcov/
+
+# Logs and temp files
+*.log
+*.tmp
+*.swp
+*.swo
+
+# Environment
+.env
+.env.local
+.env.*
+
+# Editors
+.vscode/
+.idea/
+
+# System files
+.DS_Store
+Thumbs.db
+```
